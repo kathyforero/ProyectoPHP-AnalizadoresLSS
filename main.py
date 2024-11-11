@@ -53,6 +53,7 @@ tokens = ('NUMBER',
           'TRIM'
     )
 
+# Inicio aporte: David Ramírez
 # Regular expression rules for simple tokens
 t_PLUS = r'\+'
 t_MINUS = r'-'
@@ -80,7 +81,11 @@ def t_COMMENT2(t):
     r'//.*'
     pass
 
+# Fin aporte: David Ramírez
+
 #PALABRAS RESERVADAS
+
+# Inicio aporte: Katherine Forero
 def t_IF(t):
     r'(i|I)(f|F)'
     return t
@@ -107,6 +112,9 @@ def t_BREAK(t):
     r'(b|B)(r|R)(e|E)(a|A)(k|K)'
     return t
 
+# Fin aporte: Katherine Forero
+
+# Inicio aporte: David Ramírez
 
 def t_RETURN(t):
     r'(r|R)(e|E)(t|T)(u|U)(r|R)(n|N)'
@@ -132,6 +140,10 @@ def t_READLINE(t):
 def t_TRIM(t):
     r'(t|T)(r|R)(i|I)(m|M)'
     return t   
+    
+# Fin aporte: David Ramírez
+
+# Inicio aporte: Katherine Forero
 
 #OPERADORES LOGICOS
 def t_GREATER_EQUALS(t):
@@ -167,6 +179,9 @@ def t_LOGICAL_OR(t):
     r'\|\|'
     return t
 
+# Fin aporte: Katherine Forero
+
+# Inicio aporte: David Ramírez
 
 def t_LOGICAL_NOT(t):
     r'!'
@@ -197,6 +212,9 @@ def t_DECREMENT(t):
     r'--'
     return t
 
+# Fin aporte: David Ramírez
+
+# Inicio aporte: Katherine Forero
 
 #TIPOS DE DATOS
 def t_FLOAT(t):
@@ -231,6 +249,7 @@ def t_NEWLINE(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
+# Fin aporte: Katherine Forero
 
 #IGNORE
 t_ignore = ' \t'
@@ -246,6 +265,9 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
+
+# Inicio aporte: Katherine Forero
+
 data1 = '''
 // Definir las dos variables
 $num1 = 10;
@@ -275,6 +297,10 @@ function operaciones($a, $b) {
 }
 '''
 
+# Fin aporte: Katherine Forero
+
+# Inicio aporte: David Ramírez
+
 data2 = '''
 // Definir el arreglo indexado
 $numeros = [10, 20, 30, 40, 50];
@@ -299,6 +325,8 @@ data3 = '''
 $Dato = trim(readline("Ingrese un dato: "));
 echo $Dato;
 '''
+
+# Fin aporte: David Ramírez
 
 # Give the lexer some input
 lexer.input(data3)
