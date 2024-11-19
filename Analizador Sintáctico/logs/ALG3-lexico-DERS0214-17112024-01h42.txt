@@ -1,0 +1,3 @@
+LexToken(NAME_FUNCTION,'hola',2,1)
+LexToken(LPAREN,'(',2,14)
+LexToken(RPAREN,')',2,15)
