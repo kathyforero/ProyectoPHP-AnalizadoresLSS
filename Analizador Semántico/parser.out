@@ -1,0 +1,2448 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BREAK
+    COUNT
+    TRIM
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> bloque
+Rule 2     programa -> bloque programa
+Rule 3     programa -> comment bloque programa
+Rule 4     comment -> COMMENT1
+Rule 5     comment -> COMMENT1 NEWLINE
+Rule 6     bloque -> sentencia NEWLINE
+Rule 7     bloque -> sentencia
+Rule 8     bloque -> NEWLINE
+Rule 9     sentencia -> print
+Rule 10    sentencia -> asignacion
+Rule 11    sentencia -> funcion
+Rule 12    sentencia -> if
+Rule 13    sentencia -> for
+Rule 14    asignacion -> VARIABLE ASSIGN expresion SEMICOLON
+Rule 15    print -> ECHO datos SEMICOLON
+Rule 16    print -> ECHO SEMICOLON
+Rule 17    print -> ECHO argumentos SEMICOLON
+Rule 18    if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+Rule 19    if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+Rule 20    for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+Rule 21    expresion -> argumentos
+Rule 22    expresion -> FUNCTION_NAME LPAREN argumentos RPAREN
+Rule 23    expresion -> operacionAritmetica
+Rule 24    expresion -> operacionRelacional
+Rule 25    expresion -> readline
+Rule 26    expresion -> arregloIndexado
+Rule 27    expresion -> arregloDeclarado
+Rule 28    expresion -> operacionLogica
+Rule 29    expresion -> operadorLogico
+Rule 30    expresion -> ASSIGN_ADD
+Rule 31    expresion -> ASSIGN_SUB
+Rule 32    argumentos -> datos
+Rule 33    argumentos -> datos conector argumentos
+Rule 34    conector -> COMMA
+Rule 35    conector -> PERIOD
+Rule 36    datos -> d_numericos
+Rule 37    datos -> d_strings
+Rule 38    datos -> d_booleanos
+Rule 39    datos -> VARIABLE
+Rule 40    d_numericos -> NUMBER
+Rule 41    d_numericos -> FLOAT
+Rule 42    d_strings -> STRING
+Rule 43    d_booleanos -> BOOLEAN
+Rule 44    operacionAritmetica -> datos operadorAritmetico datos
+Rule 45    operacionAritmetica -> datos operadorAritmetico operacionAritmetica
+Rule 46    operacionModificadoras -> VARIABLE INCREMENT
+Rule 47    operacionModificadoras -> VARIABLE DECREMENT
+Rule 48    operacionLogica -> operacionRelacional operadorLogico operacionRelacional
+Rule 49    operacionLogica -> operacionRelacional operadorLogico operacionLogica
+Rule 50    operacionRelacional -> datos operadorRelacional datos
+Rule 51    operadorAritmetico -> PLUS
+Rule 52    operadorAritmetico -> MINUS
+Rule 53    operadorAritmetico -> TIMES
+Rule 54    operadorAritmetico -> DIVIDE
+Rule 55    operadorAritmetico -> MOD
+Rule 56    operadorLogico -> LOGICAL_AND
+Rule 57    operadorLogico -> LOGICAL_OR
+Rule 58    operadorLogico -> LOGICAL_NOT
+Rule 59    operadorRelacional -> GREATER
+Rule 60    operadorRelacional -> LESS
+Rule 61    operadorRelacional -> EQUALS
+Rule 62    operadorRelacional -> DIFFERENT
+Rule 63    operadorRelacional -> GREATER_EQUALS
+Rule 64    operadorRelacional -> LESS_EQUALS
+Rule 65    arregloDeclarado -> LCOR NEWLINE cuerpoArregloDeclarado NEWLINE RCOR
+Rule 66    cuerpoArregloDeclarado -> datos ASSIGNATION datos
+Rule 67    cuerpoArregloDeclarado -> datos ASSIGNATION datos COMMA NEWLINE cuerpoArregloDeclarado
+Rule 68    arregloIndexado -> LCOR datos_comma RCOR
+Rule 69    funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+Rule 70    datos_comma -> datos
+Rule 71    datos_comma -> datos COMMA datos_comma
+Rule 72    cuerpoFuncion -> programa RETURN expresion SEMICOLON
+Rule 73    cuerpoFuncion -> programa
+Rule 74    cuerpoFuncion -> RETURN expresion SEMICOLON
+Rule 75    readline -> READLINE LPAREN STRING RPAREN
+
+Terminals, with rules where they appear
+
+ASSIGN               : 14
+ASSIGNATION          : 20 66 67
+ASSIGN_ADD           : 30
+ASSIGN_SUB           : 31
+BOOLEAN              : 43
+BREAK                : 
+COMMA                : 34 67 71
+COMMENT1             : 4 5
+COUNT                : 
+DECREMENT            : 47
+DIFFERENT            : 62
+DIVIDE               : 54
+ECHO                 : 15 16 17
+ELSE                 : 19
+EQUALS               : 61
+FLOAT                : 41
+FOR                  : 20
+FUNCTION             : 69
+FUNCTION_NAME        : 22 69
+GREATER              : 59
+GREATER_EQUALS       : 63
+IF                   : 18 19
+INCREMENT            : 46
+LCOR                 : 65 68
+LESS                 : 60
+LESS_EQUALS          : 64
+LKEY                 : 18 19 19 69
+LOGICAL_AND          : 56
+LOGICAL_NOT          : 58
+LOGICAL_OR           : 57
+LPAREN               : 18 19 20 22 69 75
+MINUS                : 52
+MOD                  : 55
+NEWLINE              : 5 6 8 18 19 19 19 65 65 67 69
+NUMBER               : 40
+PERIOD               : 35
+PLUS                 : 51
+RCOR                 : 65 68
+READLINE             : 75
+RETURN               : 72 74
+RKEY                 : 18 19 19 69
+RPAREN               : 18 19 20 22 69 75
+SEMICOLON            : 14 15 16 17 20 20 72 74
+STRING               : 42 75
+TIMES                : 53
+TRIM                 : 
+VARIABLE             : 14 20 20 39 46 47
+error                : 
+
+Nonterminals, with rules where they appear
+
+argumentos           : 17 21 22 33
+arregloDeclarado     : 27
+arregloIndexado      : 26
+asignacion           : 10
+bloque               : 1 2 3
+comment              : 3
+conector             : 33
+cuerpoArregloDeclarado : 65 67
+cuerpoFuncion        : 69
+d_booleanos          : 38
+d_numericos          : 36
+d_strings            : 37
+datos                : 15 20 32 33 44 44 45 50 50 66 66 67 67 70 71
+datos_comma          : 68 69 71
+expresion            : 14 72 74
+for                  : 13
+funcion              : 11
+if                   : 12
+operacionAritmetica  : 23 45
+operacionLogica      : 28 49
+operacionModificadoras : 20
+operacionRelacional  : 18 19 24 48 48 49
+operadorAritmetico   : 44 45
+operadorLogico       : 29 48 49
+operadorRelacional   : 20 50
+print                : 9
+programa             : 2 3 18 19 19 20 72 73 0
+readline             : 25
+sentencia            : 6 7
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . bloque
+    (2) programa -> . bloque programa
+    (3) programa -> . comment bloque programa
+    (6) bloque -> . sentencia NEWLINE
+    (7) bloque -> . sentencia
+    (8) bloque -> . NEWLINE
+    (4) comment -> . COMMENT1
+    (5) comment -> . COMMENT1 NEWLINE
+    (9) sentencia -> . print
+    (10) sentencia -> . asignacion
+    (11) sentencia -> . funcion
+    (12) sentencia -> . if
+    (13) sentencia -> . for
+    (15) print -> . ECHO datos SEMICOLON
+    (16) print -> . ECHO SEMICOLON
+    (17) print -> . ECHO argumentos SEMICOLON
+    (14) asignacion -> . VARIABLE ASSIGN expresion SEMICOLON
+    (69) funcion -> . FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+    (18) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+    (20) for -> . FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    NEWLINE         shift and go to state 5
+    COMMENT1        shift and go to state 6
+    ECHO            shift and go to state 12
+    VARIABLE        shift and go to state 13
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 15
+    FOR             shift and go to state 16
+
+    programa                       shift and go to state 1
+    bloque                         shift and go to state 2
+    comment                        shift and go to state 3
+    sentencia                      shift and go to state 4
+    print                          shift and go to state 7
+    asignacion                     shift and go to state 8
+    funcion                        shift and go to state 9
+    if                             shift and go to state 10
+    for                            shift and go to state 11
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> bloque .
+    (2) programa -> bloque . programa
+    (1) programa -> . bloque
+    (2) programa -> . bloque programa
+    (3) programa -> . comment bloque programa
+    (6) bloque -> . sentencia NEWLINE
+    (7) bloque -> . sentencia
+    (8) bloque -> . NEWLINE
+    (4) comment -> . COMMENT1
+    (5) comment -> . COMMENT1 NEWLINE
+    (9) sentencia -> . print
+    (10) sentencia -> . asignacion
+    (11) sentencia -> . funcion
+    (12) sentencia -> . if
+    (13) sentencia -> . for
+    (15) print -> . ECHO datos SEMICOLON
+    (16) print -> . ECHO SEMICOLON
+    (17) print -> . ECHO argumentos SEMICOLON
+    (14) asignacion -> . VARIABLE ASSIGN expresion SEMICOLON
+    (69) funcion -> . FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+    (18) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+    (20) for -> . FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    $end            reduce using rule 1 (programa -> bloque .)
+    SEMICOLON       reduce using rule 1 (programa -> bloque .)
+    RKEY            reduce using rule 1 (programa -> bloque .)
+    RETURN          reduce using rule 1 (programa -> bloque .)
+    NEWLINE         shift and go to state 5
+    COMMENT1        shift and go to state 6
+    ECHO            shift and go to state 12
+    VARIABLE        shift and go to state 13
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 15
+    FOR             shift and go to state 16
+
+    bloque                         shift and go to state 2
+    programa                       shift and go to state 17
+    comment                        shift and go to state 3
+    sentencia                      shift and go to state 4
+    print                          shift and go to state 7
+    asignacion                     shift and go to state 8
+    funcion                        shift and go to state 9
+    if                             shift and go to state 10
+    for                            shift and go to state 11
+
+state 3
+
+    (3) programa -> comment . bloque programa
+    (6) bloque -> . sentencia NEWLINE
+    (7) bloque -> . sentencia
+    (8) bloque -> . NEWLINE
+    (9) sentencia -> . print
+    (10) sentencia -> . asignacion
+    (11) sentencia -> . funcion
+    (12) sentencia -> . if
+    (13) sentencia -> . for
+    (15) print -> . ECHO datos SEMICOLON
+    (16) print -> . ECHO SEMICOLON
+    (17) print -> . ECHO argumentos SEMICOLON
+    (14) asignacion -> . VARIABLE ASSIGN expresion SEMICOLON
+    (69) funcion -> . FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+    (18) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+    (20) for -> . FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    NEWLINE         shift and go to state 5
+    ECHO            shift and go to state 12
+    VARIABLE        shift and go to state 13
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 15
+    FOR             shift and go to state 16
+
+    bloque                         shift and go to state 18
+    sentencia                      shift and go to state 4
+    print                          shift and go to state 7
+    asignacion                     shift and go to state 8
+    funcion                        shift and go to state 9
+    if                             shift and go to state 10
+    for                            shift and go to state 11
+
+state 4
+
+    (6) bloque -> sentencia . NEWLINE
+    (7) bloque -> sentencia .
+
+  ! shift/reduce conflict for NEWLINE resolved as shift
+    NEWLINE         shift and go to state 19
+    COMMENT1        reduce using rule 7 (bloque -> sentencia .)
+    ECHO            reduce using rule 7 (bloque -> sentencia .)
+    VARIABLE        reduce using rule 7 (bloque -> sentencia .)
+    FUNCTION        reduce using rule 7 (bloque -> sentencia .)
+    IF              reduce using rule 7 (bloque -> sentencia .)
+    FOR             reduce using rule 7 (bloque -> sentencia .)
+    $end            reduce using rule 7 (bloque -> sentencia .)
+    SEMICOLON       reduce using rule 7 (bloque -> sentencia .)
+    RKEY            reduce using rule 7 (bloque -> sentencia .)
+    RETURN          reduce using rule 7 (bloque -> sentencia .)
+
+  ! NEWLINE         [ reduce using rule 7 (bloque -> sentencia .) ]
+
+
+state 5
+
+    (8) bloque -> NEWLINE .
+
+    NEWLINE         reduce using rule 8 (bloque -> NEWLINE .)
+    COMMENT1        reduce using rule 8 (bloque -> NEWLINE .)
+    ECHO            reduce using rule 8 (bloque -> NEWLINE .)
+    VARIABLE        reduce using rule 8 (bloque -> NEWLINE .)
+    FUNCTION        reduce using rule 8 (bloque -> NEWLINE .)
+    IF              reduce using rule 8 (bloque -> NEWLINE .)
+    FOR             reduce using rule 8 (bloque -> NEWLINE .)
+    $end            reduce using rule 8 (bloque -> NEWLINE .)
+    SEMICOLON       reduce using rule 8 (bloque -> NEWLINE .)
+    RKEY            reduce using rule 8 (bloque -> NEWLINE .)
+    RETURN          reduce using rule 8 (bloque -> NEWLINE .)
+
+
+state 6
+
+    (4) comment -> COMMENT1 .
+    (5) comment -> COMMENT1 . NEWLINE
+
+  ! shift/reduce conflict for NEWLINE resolved as shift
+    ECHO            reduce using rule 4 (comment -> COMMENT1 .)
+    VARIABLE        reduce using rule 4 (comment -> COMMENT1 .)
+    FUNCTION        reduce using rule 4 (comment -> COMMENT1 .)
+    IF              reduce using rule 4 (comment -> COMMENT1 .)
+    FOR             reduce using rule 4 (comment -> COMMENT1 .)
+    NEWLINE         shift and go to state 20
+
+  ! NEWLINE         [ reduce using rule 4 (comment -> COMMENT1 .) ]
+
+
+state 7
+
+    (9) sentencia -> print .
+
+    NEWLINE         reduce using rule 9 (sentencia -> print .)
+    COMMENT1        reduce using rule 9 (sentencia -> print .)
+    ECHO            reduce using rule 9 (sentencia -> print .)
+    VARIABLE        reduce using rule 9 (sentencia -> print .)
+    FUNCTION        reduce using rule 9 (sentencia -> print .)
+    IF              reduce using rule 9 (sentencia -> print .)
+    FOR             reduce using rule 9 (sentencia -> print .)
+    $end            reduce using rule 9 (sentencia -> print .)
+    SEMICOLON       reduce using rule 9 (sentencia -> print .)
+    RKEY            reduce using rule 9 (sentencia -> print .)
+    RETURN          reduce using rule 9 (sentencia -> print .)
+
+
+state 8
+
+    (10) sentencia -> asignacion .
+
+    NEWLINE         reduce using rule 10 (sentencia -> asignacion .)
+    COMMENT1        reduce using rule 10 (sentencia -> asignacion .)
+    ECHO            reduce using rule 10 (sentencia -> asignacion .)
+    VARIABLE        reduce using rule 10 (sentencia -> asignacion .)
+    FUNCTION        reduce using rule 10 (sentencia -> asignacion .)
+    IF              reduce using rule 10 (sentencia -> asignacion .)
+    FOR             reduce using rule 10 (sentencia -> asignacion .)
+    $end            reduce using rule 10 (sentencia -> asignacion .)
+    SEMICOLON       reduce using rule 10 (sentencia -> asignacion .)
+    RKEY            reduce using rule 10 (sentencia -> asignacion .)
+    RETURN          reduce using rule 10 (sentencia -> asignacion .)
+
+
+state 9
+
+    (11) sentencia -> funcion .
+
+    NEWLINE         reduce using rule 11 (sentencia -> funcion .)
+    COMMENT1        reduce using rule 11 (sentencia -> funcion .)
+    ECHO            reduce using rule 11 (sentencia -> funcion .)
+    VARIABLE        reduce using rule 11 (sentencia -> funcion .)
+    FUNCTION        reduce using rule 11 (sentencia -> funcion .)
+    IF              reduce using rule 11 (sentencia -> funcion .)
+    FOR             reduce using rule 11 (sentencia -> funcion .)
+    $end            reduce using rule 11 (sentencia -> funcion .)
+    SEMICOLON       reduce using rule 11 (sentencia -> funcion .)
+    RKEY            reduce using rule 11 (sentencia -> funcion .)
+    RETURN          reduce using rule 11 (sentencia -> funcion .)
+
+
+state 10
+
+    (12) sentencia -> if .
+
+    NEWLINE         reduce using rule 12 (sentencia -> if .)
+    COMMENT1        reduce using rule 12 (sentencia -> if .)
+    ECHO            reduce using rule 12 (sentencia -> if .)
+    VARIABLE        reduce using rule 12 (sentencia -> if .)
+    FUNCTION        reduce using rule 12 (sentencia -> if .)
+    IF              reduce using rule 12 (sentencia -> if .)
+    FOR             reduce using rule 12 (sentencia -> if .)
+    $end            reduce using rule 12 (sentencia -> if .)
+    SEMICOLON       reduce using rule 12 (sentencia -> if .)
+    RKEY            reduce using rule 12 (sentencia -> if .)
+    RETURN          reduce using rule 12 (sentencia -> if .)
+
+
+state 11
+
+    (13) sentencia -> for .
+
+    NEWLINE         reduce using rule 13 (sentencia -> for .)
+    COMMENT1        reduce using rule 13 (sentencia -> for .)
+    ECHO            reduce using rule 13 (sentencia -> for .)
+    VARIABLE        reduce using rule 13 (sentencia -> for .)
+    FUNCTION        reduce using rule 13 (sentencia -> for .)
+    IF              reduce using rule 13 (sentencia -> for .)
+    FOR             reduce using rule 13 (sentencia -> for .)
+    $end            reduce using rule 13 (sentencia -> for .)
+    SEMICOLON       reduce using rule 13 (sentencia -> for .)
+    RKEY            reduce using rule 13 (sentencia -> for .)
+    RETURN          reduce using rule 13 (sentencia -> for .)
+
+
+state 12
+
+    (15) print -> ECHO . datos SEMICOLON
+    (16) print -> ECHO . SEMICOLON
+    (17) print -> ECHO . argumentos SEMICOLON
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (32) argumentos -> . datos
+    (33) argumentos -> . datos conector argumentos
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    SEMICOLON       shift and go to state 22
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    datos                          shift and go to state 21
+    argumentos                     shift and go to state 23
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 13
+
+    (14) asignacion -> VARIABLE . ASSIGN expresion SEMICOLON
+
+    ASSIGN          shift and go to state 32
+
+
+state 14
+
+    (69) funcion -> FUNCTION . FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+
+    FUNCTION_NAME   shift and go to state 33
+
+
+state 15
+
+    (18) if -> IF . LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> IF . LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+
+    LPAREN          shift and go to state 34
+
+
+state 16
+
+    (20) for -> FOR . LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    LPAREN          shift and go to state 35
+
+
+state 17
+
+    (2) programa -> bloque programa .
+
+    $end            reduce using rule 2 (programa -> bloque programa .)
+    SEMICOLON       reduce using rule 2 (programa -> bloque programa .)
+    RKEY            reduce using rule 2 (programa -> bloque programa .)
+    RETURN          reduce using rule 2 (programa -> bloque programa .)
+
+
+state 18
+
+    (3) programa -> comment bloque . programa
+    (1) programa -> . bloque
+    (2) programa -> . bloque programa
+    (3) programa -> . comment bloque programa
+    (6) bloque -> . sentencia NEWLINE
+    (7) bloque -> . sentencia
+    (8) bloque -> . NEWLINE
+    (4) comment -> . COMMENT1
+    (5) comment -> . COMMENT1 NEWLINE
+    (9) sentencia -> . print
+    (10) sentencia -> . asignacion
+    (11) sentencia -> . funcion
+    (12) sentencia -> . if
+    (13) sentencia -> . for
+    (15) print -> . ECHO datos SEMICOLON
+    (16) print -> . ECHO SEMICOLON
+    (17) print -> . ECHO argumentos SEMICOLON
+    (14) asignacion -> . VARIABLE ASSIGN expresion SEMICOLON
+    (69) funcion -> . FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+    (18) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+    (20) for -> . FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    NEWLINE         shift and go to state 5
+    COMMENT1        shift and go to state 6
+    ECHO            shift and go to state 12
+    VARIABLE        shift and go to state 13
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 15
+    FOR             shift and go to state 16
+
+    comment                        shift and go to state 3
+    bloque                         shift and go to state 2
+    programa                       shift and go to state 36
+    sentencia                      shift and go to state 4
+    print                          shift and go to state 7
+    asignacion                     shift and go to state 8
+    funcion                        shift and go to state 9
+    if                             shift and go to state 10
+    for                            shift and go to state 11
+
+state 19
+
+    (6) bloque -> sentencia NEWLINE .
+
+    NEWLINE         reduce using rule 6 (bloque -> sentencia NEWLINE .)
+    COMMENT1        reduce using rule 6 (bloque -> sentencia NEWLINE .)
+    ECHO            reduce using rule 6 (bloque -> sentencia NEWLINE .)
+    VARIABLE        reduce using rule 6 (bloque -> sentencia NEWLINE .)
+    FUNCTION        reduce using rule 6 (bloque -> sentencia NEWLINE .)
+    IF              reduce using rule 6 (bloque -> sentencia NEWLINE .)
+    FOR             reduce using rule 6 (bloque -> sentencia NEWLINE .)
+    $end            reduce using rule 6 (bloque -> sentencia NEWLINE .)
+    SEMICOLON       reduce using rule 6 (bloque -> sentencia NEWLINE .)
+    RKEY            reduce using rule 6 (bloque -> sentencia NEWLINE .)
+    RETURN          reduce using rule 6 (bloque -> sentencia NEWLINE .)
+
+
+state 20
+
+    (5) comment -> COMMENT1 NEWLINE .
+
+    NEWLINE         reduce using rule 5 (comment -> COMMENT1 NEWLINE .)
+    ECHO            reduce using rule 5 (comment -> COMMENT1 NEWLINE .)
+    VARIABLE        reduce using rule 5 (comment -> COMMENT1 NEWLINE .)
+    FUNCTION        reduce using rule 5 (comment -> COMMENT1 NEWLINE .)
+    IF              reduce using rule 5 (comment -> COMMENT1 NEWLINE .)
+    FOR             reduce using rule 5 (comment -> COMMENT1 NEWLINE .)
+
+
+state 21
+
+    (15) print -> ECHO datos . SEMICOLON
+    (32) argumentos -> datos .
+    (33) argumentos -> datos . conector argumentos
+    (34) conector -> . COMMA
+    (35) conector -> . PERIOD
+
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+    SEMICOLON       shift and go to state 37
+    COMMA           shift and go to state 39
+    PERIOD          shift and go to state 40
+
+  ! SEMICOLON       [ reduce using rule 32 (argumentos -> datos .) ]
+
+    conector                       shift and go to state 38
+
+state 22
+
+    (16) print -> ECHO SEMICOLON .
+
+    NEWLINE         reduce using rule 16 (print -> ECHO SEMICOLON .)
+    COMMENT1        reduce using rule 16 (print -> ECHO SEMICOLON .)
+    ECHO            reduce using rule 16 (print -> ECHO SEMICOLON .)
+    VARIABLE        reduce using rule 16 (print -> ECHO SEMICOLON .)
+    FUNCTION        reduce using rule 16 (print -> ECHO SEMICOLON .)
+    IF              reduce using rule 16 (print -> ECHO SEMICOLON .)
+    FOR             reduce using rule 16 (print -> ECHO SEMICOLON .)
+    $end            reduce using rule 16 (print -> ECHO SEMICOLON .)
+    SEMICOLON       reduce using rule 16 (print -> ECHO SEMICOLON .)
+    RKEY            reduce using rule 16 (print -> ECHO SEMICOLON .)
+    RETURN          reduce using rule 16 (print -> ECHO SEMICOLON .)
+
+
+state 23
+
+    (17) print -> ECHO argumentos . SEMICOLON
+
+    SEMICOLON       shift and go to state 41
+
+
+state 24
+
+    (36) datos -> d_numericos .
+
+    SEMICOLON       reduce using rule 36 (datos -> d_numericos .)
+    COMMA           reduce using rule 36 (datos -> d_numericos .)
+    PERIOD          reduce using rule 36 (datos -> d_numericos .)
+    PLUS            reduce using rule 36 (datos -> d_numericos .)
+    MINUS           reduce using rule 36 (datos -> d_numericos .)
+    TIMES           reduce using rule 36 (datos -> d_numericos .)
+    DIVIDE          reduce using rule 36 (datos -> d_numericos .)
+    MOD             reduce using rule 36 (datos -> d_numericos .)
+    GREATER         reduce using rule 36 (datos -> d_numericos .)
+    LESS            reduce using rule 36 (datos -> d_numericos .)
+    EQUALS          reduce using rule 36 (datos -> d_numericos .)
+    DIFFERENT       reduce using rule 36 (datos -> d_numericos .)
+    GREATER_EQUALS  reduce using rule 36 (datos -> d_numericos .)
+    LESS_EQUALS     reduce using rule 36 (datos -> d_numericos .)
+    RPAREN          reduce using rule 36 (datos -> d_numericos .)
+    RCOR            reduce using rule 36 (datos -> d_numericos .)
+    LOGICAL_AND     reduce using rule 36 (datos -> d_numericos .)
+    LOGICAL_OR      reduce using rule 36 (datos -> d_numericos .)
+    LOGICAL_NOT     reduce using rule 36 (datos -> d_numericos .)
+    ASSIGNATION     reduce using rule 36 (datos -> d_numericos .)
+    NEWLINE         reduce using rule 36 (datos -> d_numericos .)
+
+
+state 25
+
+    (37) datos -> d_strings .
+
+    SEMICOLON       reduce using rule 37 (datos -> d_strings .)
+    COMMA           reduce using rule 37 (datos -> d_strings .)
+    PERIOD          reduce using rule 37 (datos -> d_strings .)
+    PLUS            reduce using rule 37 (datos -> d_strings .)
+    MINUS           reduce using rule 37 (datos -> d_strings .)
+    TIMES           reduce using rule 37 (datos -> d_strings .)
+    DIVIDE          reduce using rule 37 (datos -> d_strings .)
+    MOD             reduce using rule 37 (datos -> d_strings .)
+    GREATER         reduce using rule 37 (datos -> d_strings .)
+    LESS            reduce using rule 37 (datos -> d_strings .)
+    EQUALS          reduce using rule 37 (datos -> d_strings .)
+    DIFFERENT       reduce using rule 37 (datos -> d_strings .)
+    GREATER_EQUALS  reduce using rule 37 (datos -> d_strings .)
+    LESS_EQUALS     reduce using rule 37 (datos -> d_strings .)
+    RPAREN          reduce using rule 37 (datos -> d_strings .)
+    RCOR            reduce using rule 37 (datos -> d_strings .)
+    LOGICAL_AND     reduce using rule 37 (datos -> d_strings .)
+    LOGICAL_OR      reduce using rule 37 (datos -> d_strings .)
+    LOGICAL_NOT     reduce using rule 37 (datos -> d_strings .)
+    ASSIGNATION     reduce using rule 37 (datos -> d_strings .)
+    NEWLINE         reduce using rule 37 (datos -> d_strings .)
+
+
+state 26
+
+    (38) datos -> d_booleanos .
+
+    SEMICOLON       reduce using rule 38 (datos -> d_booleanos .)
+    COMMA           reduce using rule 38 (datos -> d_booleanos .)
+    PERIOD          reduce using rule 38 (datos -> d_booleanos .)
+    PLUS            reduce using rule 38 (datos -> d_booleanos .)
+    MINUS           reduce using rule 38 (datos -> d_booleanos .)
+    TIMES           reduce using rule 38 (datos -> d_booleanos .)
+    DIVIDE          reduce using rule 38 (datos -> d_booleanos .)
+    MOD             reduce using rule 38 (datos -> d_booleanos .)
+    GREATER         reduce using rule 38 (datos -> d_booleanos .)
+    LESS            reduce using rule 38 (datos -> d_booleanos .)
+    EQUALS          reduce using rule 38 (datos -> d_booleanos .)
+    DIFFERENT       reduce using rule 38 (datos -> d_booleanos .)
+    GREATER_EQUALS  reduce using rule 38 (datos -> d_booleanos .)
+    LESS_EQUALS     reduce using rule 38 (datos -> d_booleanos .)
+    RPAREN          reduce using rule 38 (datos -> d_booleanos .)
+    RCOR            reduce using rule 38 (datos -> d_booleanos .)
+    LOGICAL_AND     reduce using rule 38 (datos -> d_booleanos .)
+    LOGICAL_OR      reduce using rule 38 (datos -> d_booleanos .)
+    LOGICAL_NOT     reduce using rule 38 (datos -> d_booleanos .)
+    ASSIGNATION     reduce using rule 38 (datos -> d_booleanos .)
+    NEWLINE         reduce using rule 38 (datos -> d_booleanos .)
+
+
+state 27
+
+    (39) datos -> VARIABLE .
+
+    SEMICOLON       reduce using rule 39 (datos -> VARIABLE .)
+    COMMA           reduce using rule 39 (datos -> VARIABLE .)
+    PERIOD          reduce using rule 39 (datos -> VARIABLE .)
+    PLUS            reduce using rule 39 (datos -> VARIABLE .)
+    MINUS           reduce using rule 39 (datos -> VARIABLE .)
+    TIMES           reduce using rule 39 (datos -> VARIABLE .)
+    DIVIDE          reduce using rule 39 (datos -> VARIABLE .)
+    MOD             reduce using rule 39 (datos -> VARIABLE .)
+    GREATER         reduce using rule 39 (datos -> VARIABLE .)
+    LESS            reduce using rule 39 (datos -> VARIABLE .)
+    EQUALS          reduce using rule 39 (datos -> VARIABLE .)
+    DIFFERENT       reduce using rule 39 (datos -> VARIABLE .)
+    GREATER_EQUALS  reduce using rule 39 (datos -> VARIABLE .)
+    LESS_EQUALS     reduce using rule 39 (datos -> VARIABLE .)
+    RPAREN          reduce using rule 39 (datos -> VARIABLE .)
+    RCOR            reduce using rule 39 (datos -> VARIABLE .)
+    LOGICAL_AND     reduce using rule 39 (datos -> VARIABLE .)
+    LOGICAL_OR      reduce using rule 39 (datos -> VARIABLE .)
+    LOGICAL_NOT     reduce using rule 39 (datos -> VARIABLE .)
+    ASSIGNATION     reduce using rule 39 (datos -> VARIABLE .)
+    NEWLINE         reduce using rule 39 (datos -> VARIABLE .)
+
+
+state 28
+
+    (40) d_numericos -> NUMBER .
+
+    SEMICOLON       reduce using rule 40 (d_numericos -> NUMBER .)
+    COMMA           reduce using rule 40 (d_numericos -> NUMBER .)
+    PERIOD          reduce using rule 40 (d_numericos -> NUMBER .)
+    PLUS            reduce using rule 40 (d_numericos -> NUMBER .)
+    MINUS           reduce using rule 40 (d_numericos -> NUMBER .)
+    TIMES           reduce using rule 40 (d_numericos -> NUMBER .)
+    DIVIDE          reduce using rule 40 (d_numericos -> NUMBER .)
+    MOD             reduce using rule 40 (d_numericos -> NUMBER .)
+    GREATER         reduce using rule 40 (d_numericos -> NUMBER .)
+    LESS            reduce using rule 40 (d_numericos -> NUMBER .)
+    EQUALS          reduce using rule 40 (d_numericos -> NUMBER .)
+    DIFFERENT       reduce using rule 40 (d_numericos -> NUMBER .)
+    GREATER_EQUALS  reduce using rule 40 (d_numericos -> NUMBER .)
+    LESS_EQUALS     reduce using rule 40 (d_numericos -> NUMBER .)
+    RPAREN          reduce using rule 40 (d_numericos -> NUMBER .)
+    RCOR            reduce using rule 40 (d_numericos -> NUMBER .)
+    LOGICAL_AND     reduce using rule 40 (d_numericos -> NUMBER .)
+    LOGICAL_OR      reduce using rule 40 (d_numericos -> NUMBER .)
+    LOGICAL_NOT     reduce using rule 40 (d_numericos -> NUMBER .)
+    ASSIGNATION     reduce using rule 40 (d_numericos -> NUMBER .)
+    NEWLINE         reduce using rule 40 (d_numericos -> NUMBER .)
+
+
+state 29
+
+    (41) d_numericos -> FLOAT .
+
+    SEMICOLON       reduce using rule 41 (d_numericos -> FLOAT .)
+    COMMA           reduce using rule 41 (d_numericos -> FLOAT .)
+    PERIOD          reduce using rule 41 (d_numericos -> FLOAT .)
+    PLUS            reduce using rule 41 (d_numericos -> FLOAT .)
+    MINUS           reduce using rule 41 (d_numericos -> FLOAT .)
+    TIMES           reduce using rule 41 (d_numericos -> FLOAT .)
+    DIVIDE          reduce using rule 41 (d_numericos -> FLOAT .)
+    MOD             reduce using rule 41 (d_numericos -> FLOAT .)
+    GREATER         reduce using rule 41 (d_numericos -> FLOAT .)
+    LESS            reduce using rule 41 (d_numericos -> FLOAT .)
+    EQUALS          reduce using rule 41 (d_numericos -> FLOAT .)
+    DIFFERENT       reduce using rule 41 (d_numericos -> FLOAT .)
+    GREATER_EQUALS  reduce using rule 41 (d_numericos -> FLOAT .)
+    LESS_EQUALS     reduce using rule 41 (d_numericos -> FLOAT .)
+    RPAREN          reduce using rule 41 (d_numericos -> FLOAT .)
+    RCOR            reduce using rule 41 (d_numericos -> FLOAT .)
+    LOGICAL_AND     reduce using rule 41 (d_numericos -> FLOAT .)
+    LOGICAL_OR      reduce using rule 41 (d_numericos -> FLOAT .)
+    LOGICAL_NOT     reduce using rule 41 (d_numericos -> FLOAT .)
+    ASSIGNATION     reduce using rule 41 (d_numericos -> FLOAT .)
+    NEWLINE         reduce using rule 41 (d_numericos -> FLOAT .)
+
+
+state 30
+
+    (42) d_strings -> STRING .
+
+    SEMICOLON       reduce using rule 42 (d_strings -> STRING .)
+    COMMA           reduce using rule 42 (d_strings -> STRING .)
+    PERIOD          reduce using rule 42 (d_strings -> STRING .)
+    PLUS            reduce using rule 42 (d_strings -> STRING .)
+    MINUS           reduce using rule 42 (d_strings -> STRING .)
+    TIMES           reduce using rule 42 (d_strings -> STRING .)
+    DIVIDE          reduce using rule 42 (d_strings -> STRING .)
+    MOD             reduce using rule 42 (d_strings -> STRING .)
+    GREATER         reduce using rule 42 (d_strings -> STRING .)
+    LESS            reduce using rule 42 (d_strings -> STRING .)
+    EQUALS          reduce using rule 42 (d_strings -> STRING .)
+    DIFFERENT       reduce using rule 42 (d_strings -> STRING .)
+    GREATER_EQUALS  reduce using rule 42 (d_strings -> STRING .)
+    LESS_EQUALS     reduce using rule 42 (d_strings -> STRING .)
+    RPAREN          reduce using rule 42 (d_strings -> STRING .)
+    RCOR            reduce using rule 42 (d_strings -> STRING .)
+    LOGICAL_AND     reduce using rule 42 (d_strings -> STRING .)
+    LOGICAL_OR      reduce using rule 42 (d_strings -> STRING .)
+    LOGICAL_NOT     reduce using rule 42 (d_strings -> STRING .)
+    ASSIGNATION     reduce using rule 42 (d_strings -> STRING .)
+    NEWLINE         reduce using rule 42 (d_strings -> STRING .)
+
+
+state 31
+
+    (43) d_booleanos -> BOOLEAN .
+
+    SEMICOLON       reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    COMMA           reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    PERIOD          reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    PLUS            reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    MINUS           reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    TIMES           reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    DIVIDE          reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    MOD             reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    GREATER         reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    LESS            reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    EQUALS          reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    DIFFERENT       reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    GREATER_EQUALS  reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    LESS_EQUALS     reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    RPAREN          reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    RCOR            reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    LOGICAL_AND     reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    LOGICAL_OR      reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    LOGICAL_NOT     reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    ASSIGNATION     reduce using rule 43 (d_booleanos -> BOOLEAN .)
+    NEWLINE         reduce using rule 43 (d_booleanos -> BOOLEAN .)
+
+
+state 32
+
+    (14) asignacion -> VARIABLE ASSIGN . expresion SEMICOLON
+    (21) expresion -> . argumentos
+    (22) expresion -> . FUNCTION_NAME LPAREN argumentos RPAREN
+    (23) expresion -> . operacionAritmetica
+    (24) expresion -> . operacionRelacional
+    (25) expresion -> . readline
+    (26) expresion -> . arregloIndexado
+    (27) expresion -> . arregloDeclarado
+    (28) expresion -> . operacionLogica
+    (29) expresion -> . operadorLogico
+    (30) expresion -> . ASSIGN_ADD
+    (31) expresion -> . ASSIGN_SUB
+    (32) argumentos -> . datos
+    (33) argumentos -> . datos conector argumentos
+    (44) operacionAritmetica -> . datos operadorAritmetico datos
+    (45) operacionAritmetica -> . datos operadorAritmetico operacionAritmetica
+    (50) operacionRelacional -> . datos operadorRelacional datos
+    (75) readline -> . READLINE LPAREN STRING RPAREN
+    (68) arregloIndexado -> . LCOR datos_comma RCOR
+    (65) arregloDeclarado -> . LCOR NEWLINE cuerpoArregloDeclarado NEWLINE RCOR
+    (48) operacionLogica -> . operacionRelacional operadorLogico operacionRelacional
+    (49) operacionLogica -> . operacionRelacional operadorLogico operacionLogica
+    (56) operadorLogico -> . LOGICAL_AND
+    (57) operadorLogico -> . LOGICAL_OR
+    (58) operadorLogico -> . LOGICAL_NOT
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    FUNCTION_NAME   shift and go to state 44
+    ASSIGN_ADD      shift and go to state 52
+    ASSIGN_SUB      shift and go to state 53
+    READLINE        shift and go to state 55
+    LCOR            shift and go to state 56
+    LOGICAL_AND     shift and go to state 57
+    LOGICAL_OR      shift and go to state 58
+    LOGICAL_NOT     shift and go to state 59
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    expresion                      shift and go to state 42
+    argumentos                     shift and go to state 43
+    operacionAritmetica            shift and go to state 45
+    operacionRelacional            shift and go to state 46
+    readline                       shift and go to state 47
+    arregloIndexado                shift and go to state 48
+    arregloDeclarado               shift and go to state 49
+    operacionLogica                shift and go to state 50
+    operadorLogico                 shift and go to state 51
+    datos                          shift and go to state 54
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 33
+
+    (69) funcion -> FUNCTION FUNCTION_NAME . LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+
+    LPAREN          shift and go to state 60
+
+
+state 34
+
+    (18) if -> IF LPAREN . operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> IF LPAREN . operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+    (50) operacionRelacional -> . datos operadorRelacional datos
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    operacionRelacional            shift and go to state 61
+    datos                          shift and go to state 62
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 35
+
+    (20) for -> FOR LPAREN . VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    VARIABLE        shift and go to state 63
+
+
+state 36
+
+    (3) programa -> comment bloque programa .
+
+    $end            reduce using rule 3 (programa -> comment bloque programa .)
+    SEMICOLON       reduce using rule 3 (programa -> comment bloque programa .)
+    RKEY            reduce using rule 3 (programa -> comment bloque programa .)
+    RETURN          reduce using rule 3 (programa -> comment bloque programa .)
+
+
+state 37
+
+    (15) print -> ECHO datos SEMICOLON .
+
+    NEWLINE         reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+    COMMENT1        reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+    ECHO            reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+    VARIABLE        reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+    FUNCTION        reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+    IF              reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+    FOR             reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+    $end            reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+    SEMICOLON       reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+    RKEY            reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+    RETURN          reduce using rule 15 (print -> ECHO datos SEMICOLON .)
+
+
+state 38
+
+    (33) argumentos -> datos conector . argumentos
+    (32) argumentos -> . datos
+    (33) argumentos -> . datos conector argumentos
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    datos                          shift and go to state 64
+    argumentos                     shift and go to state 65
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 39
+
+    (34) conector -> COMMA .
+
+    VARIABLE        reduce using rule 34 (conector -> COMMA .)
+    NUMBER          reduce using rule 34 (conector -> COMMA .)
+    FLOAT           reduce using rule 34 (conector -> COMMA .)
+    STRING          reduce using rule 34 (conector -> COMMA .)
+    BOOLEAN         reduce using rule 34 (conector -> COMMA .)
+
+
+state 40
+
+    (35) conector -> PERIOD .
+
+    VARIABLE        reduce using rule 35 (conector -> PERIOD .)
+    NUMBER          reduce using rule 35 (conector -> PERIOD .)
+    FLOAT           reduce using rule 35 (conector -> PERIOD .)
+    STRING          reduce using rule 35 (conector -> PERIOD .)
+    BOOLEAN         reduce using rule 35 (conector -> PERIOD .)
+
+
+state 41
+
+    (17) print -> ECHO argumentos SEMICOLON .
+
+    NEWLINE         reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+    COMMENT1        reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+    ECHO            reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+    VARIABLE        reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+    FUNCTION        reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+    IF              reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+    FOR             reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+    $end            reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+    SEMICOLON       reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+    RKEY            reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+    RETURN          reduce using rule 17 (print -> ECHO argumentos SEMICOLON .)
+
+
+state 42
+
+    (14) asignacion -> VARIABLE ASSIGN expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 66
+
+
+state 43
+
+    (21) expresion -> argumentos .
+
+    SEMICOLON       reduce using rule 21 (expresion -> argumentos .)
+
+
+state 44
+
+    (22) expresion -> FUNCTION_NAME . LPAREN argumentos RPAREN
+
+    LPAREN          shift and go to state 67
+
+
+state 45
+
+    (23) expresion -> operacionAritmetica .
+
+    SEMICOLON       reduce using rule 23 (expresion -> operacionAritmetica .)
+
+
+state 46
+
+    (24) expresion -> operacionRelacional .
+    (48) operacionLogica -> operacionRelacional . operadorLogico operacionRelacional
+    (49) operacionLogica -> operacionRelacional . operadorLogico operacionLogica
+    (56) operadorLogico -> . LOGICAL_AND
+    (57) operadorLogico -> . LOGICAL_OR
+    (58) operadorLogico -> . LOGICAL_NOT
+
+    SEMICOLON       reduce using rule 24 (expresion -> operacionRelacional .)
+    LOGICAL_AND     shift and go to state 57
+    LOGICAL_OR      shift and go to state 58
+    LOGICAL_NOT     shift and go to state 59
+
+    operadorLogico                 shift and go to state 68
+
+state 47
+
+    (25) expresion -> readline .
+
+    SEMICOLON       reduce using rule 25 (expresion -> readline .)
+
+
+state 48
+
+    (26) expresion -> arregloIndexado .
+
+    SEMICOLON       reduce using rule 26 (expresion -> arregloIndexado .)
+
+
+state 49
+
+    (27) expresion -> arregloDeclarado .
+
+    SEMICOLON       reduce using rule 27 (expresion -> arregloDeclarado .)
+
+
+state 50
+
+    (28) expresion -> operacionLogica .
+
+    SEMICOLON       reduce using rule 28 (expresion -> operacionLogica .)
+
+
+state 51
+
+    (29) expresion -> operadorLogico .
+
+    SEMICOLON       reduce using rule 29 (expresion -> operadorLogico .)
+
+
+state 52
+
+    (30) expresion -> ASSIGN_ADD .
+
+    SEMICOLON       reduce using rule 30 (expresion -> ASSIGN_ADD .)
+
+
+state 53
+
+    (31) expresion -> ASSIGN_SUB .
+
+    SEMICOLON       reduce using rule 31 (expresion -> ASSIGN_SUB .)
+
+
+state 54
+
+    (32) argumentos -> datos .
+    (33) argumentos -> datos . conector argumentos
+    (44) operacionAritmetica -> datos . operadorAritmetico datos
+    (45) operacionAritmetica -> datos . operadorAritmetico operacionAritmetica
+    (50) operacionRelacional -> datos . operadorRelacional datos
+    (34) conector -> . COMMA
+    (35) conector -> . PERIOD
+    (51) operadorAritmetico -> . PLUS
+    (52) operadorAritmetico -> . MINUS
+    (53) operadorAritmetico -> . TIMES
+    (54) operadorAritmetico -> . DIVIDE
+    (55) operadorAritmetico -> . MOD
+    (59) operadorRelacional -> . GREATER
+    (60) operadorRelacional -> . LESS
+    (61) operadorRelacional -> . EQUALS
+    (62) operadorRelacional -> . DIFFERENT
+    (63) operadorRelacional -> . GREATER_EQUALS
+    (64) operadorRelacional -> . LESS_EQUALS
+
+    SEMICOLON       reduce using rule 32 (argumentos -> datos .)
+    COMMA           shift and go to state 39
+    PERIOD          shift and go to state 40
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    TIMES           shift and go to state 73
+    DIVIDE          shift and go to state 74
+    MOD             shift and go to state 75
+    GREATER         shift and go to state 76
+    LESS            shift and go to state 77
+    EQUALS          shift and go to state 78
+    DIFFERENT       shift and go to state 79
+    GREATER_EQUALS  shift and go to state 80
+    LESS_EQUALS     shift and go to state 81
+
+    conector                       shift and go to state 38
+    operadorAritmetico             shift and go to state 69
+    operadorRelacional             shift and go to state 70
+
+state 55
+
+    (75) readline -> READLINE . LPAREN STRING RPAREN
+
+    LPAREN          shift and go to state 82
+
+
+state 56
+
+    (68) arregloIndexado -> LCOR . datos_comma RCOR
+    (65) arregloDeclarado -> LCOR . NEWLINE cuerpoArregloDeclarado NEWLINE RCOR
+    (70) datos_comma -> . datos
+    (71) datos_comma -> . datos COMMA datos_comma
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    NEWLINE         shift and go to state 84
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    datos_comma                    shift and go to state 83
+    datos                          shift and go to state 85
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 57
+
+    (56) operadorLogico -> LOGICAL_AND .
+
+    SEMICOLON       reduce using rule 56 (operadorLogico -> LOGICAL_AND .)
+    VARIABLE        reduce using rule 56 (operadorLogico -> LOGICAL_AND .)
+    NUMBER          reduce using rule 56 (operadorLogico -> LOGICAL_AND .)
+    FLOAT           reduce using rule 56 (operadorLogico -> LOGICAL_AND .)
+    STRING          reduce using rule 56 (operadorLogico -> LOGICAL_AND .)
+    BOOLEAN         reduce using rule 56 (operadorLogico -> LOGICAL_AND .)
+
+
+state 58
+
+    (57) operadorLogico -> LOGICAL_OR .
+
+    SEMICOLON       reduce using rule 57 (operadorLogico -> LOGICAL_OR .)
+    VARIABLE        reduce using rule 57 (operadorLogico -> LOGICAL_OR .)
+    NUMBER          reduce using rule 57 (operadorLogico -> LOGICAL_OR .)
+    FLOAT           reduce using rule 57 (operadorLogico -> LOGICAL_OR .)
+    STRING          reduce using rule 57 (operadorLogico -> LOGICAL_OR .)
+    BOOLEAN         reduce using rule 57 (operadorLogico -> LOGICAL_OR .)
+
+
+state 59
+
+    (58) operadorLogico -> LOGICAL_NOT .
+
+    SEMICOLON       reduce using rule 58 (operadorLogico -> LOGICAL_NOT .)
+    VARIABLE        reduce using rule 58 (operadorLogico -> LOGICAL_NOT .)
+    NUMBER          reduce using rule 58 (operadorLogico -> LOGICAL_NOT .)
+    FLOAT           reduce using rule 58 (operadorLogico -> LOGICAL_NOT .)
+    STRING          reduce using rule 58 (operadorLogico -> LOGICAL_NOT .)
+    BOOLEAN         reduce using rule 58 (operadorLogico -> LOGICAL_NOT .)
+
+
+state 60
+
+    (69) funcion -> FUNCTION FUNCTION_NAME LPAREN . datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+    (70) datos_comma -> . datos
+    (71) datos_comma -> . datos COMMA datos_comma
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    datos_comma                    shift and go to state 86
+    datos                          shift and go to state 85
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 61
+
+    (18) if -> IF LPAREN operacionRelacional . RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> IF LPAREN operacionRelacional . RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+
+    RPAREN          shift and go to state 87
+
+
+state 62
+
+    (50) operacionRelacional -> datos . operadorRelacional datos
+    (59) operadorRelacional -> . GREATER
+    (60) operadorRelacional -> . LESS
+    (61) operadorRelacional -> . EQUALS
+    (62) operadorRelacional -> . DIFFERENT
+    (63) operadorRelacional -> . GREATER_EQUALS
+    (64) operadorRelacional -> . LESS_EQUALS
+
+    GREATER         shift and go to state 76
+    LESS            shift and go to state 77
+    EQUALS          shift and go to state 78
+    DIFFERENT       shift and go to state 79
+    GREATER_EQUALS  shift and go to state 80
+    LESS_EQUALS     shift and go to state 81
+
+    operadorRelacional             shift and go to state 70
+
+state 63
+
+    (20) for -> FOR LPAREN VARIABLE . ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    ASSIGNATION     shift and go to state 88
+
+
+state 64
+
+    (32) argumentos -> datos .
+    (33) argumentos -> datos . conector argumentos
+    (34) conector -> . COMMA
+    (35) conector -> . PERIOD
+
+    SEMICOLON       reduce using rule 32 (argumentos -> datos .)
+    RPAREN          reduce using rule 32 (argumentos -> datos .)
+    COMMA           shift and go to state 39
+    PERIOD          shift and go to state 40
+
+    conector                       shift and go to state 38
+
+state 65
+
+    (33) argumentos -> datos conector argumentos .
+
+    SEMICOLON       reduce using rule 33 (argumentos -> datos conector argumentos .)
+    RPAREN          reduce using rule 33 (argumentos -> datos conector argumentos .)
+
+
+state 66
+
+    (14) asignacion -> VARIABLE ASSIGN expresion SEMICOLON .
+
+    NEWLINE         reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+    COMMENT1        reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+    ECHO            reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+    VARIABLE        reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+    FUNCTION        reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+    IF              reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+    FOR             reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+    $end            reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+    SEMICOLON       reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+    RKEY            reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+    RETURN          reduce using rule 14 (asignacion -> VARIABLE ASSIGN expresion SEMICOLON .)
+
+
+state 67
+
+    (22) expresion -> FUNCTION_NAME LPAREN . argumentos RPAREN
+    (32) argumentos -> . datos
+    (33) argumentos -> . datos conector argumentos
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    argumentos                     shift and go to state 89
+    datos                          shift and go to state 64
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 68
+
+    (48) operacionLogica -> operacionRelacional operadorLogico . operacionRelacional
+    (49) operacionLogica -> operacionRelacional operadorLogico . operacionLogica
+    (50) operacionRelacional -> . datos operadorRelacional datos
+    (48) operacionLogica -> . operacionRelacional operadorLogico operacionRelacional
+    (49) operacionLogica -> . operacionRelacional operadorLogico operacionLogica
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    operacionRelacional            shift and go to state 90
+    operacionLogica                shift and go to state 91
+    datos                          shift and go to state 62
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 69
+
+    (44) operacionAritmetica -> datos operadorAritmetico . datos
+    (45) operacionAritmetica -> datos operadorAritmetico . operacionAritmetica
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (44) operacionAritmetica -> . datos operadorAritmetico datos
+    (45) operacionAritmetica -> . datos operadorAritmetico operacionAritmetica
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    datos                          shift and go to state 92
+    operacionAritmetica            shift and go to state 93
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 70
+
+    (50) operacionRelacional -> datos operadorRelacional . datos
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    datos                          shift and go to state 94
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 71
+
+    (51) operadorAritmetico -> PLUS .
+
+    VARIABLE        reduce using rule 51 (operadorAritmetico -> PLUS .)
+    NUMBER          reduce using rule 51 (operadorAritmetico -> PLUS .)
+    FLOAT           reduce using rule 51 (operadorAritmetico -> PLUS .)
+    STRING          reduce using rule 51 (operadorAritmetico -> PLUS .)
+    BOOLEAN         reduce using rule 51 (operadorAritmetico -> PLUS .)
+
+
+state 72
+
+    (52) operadorAritmetico -> MINUS .
+
+    VARIABLE        reduce using rule 52 (operadorAritmetico -> MINUS .)
+    NUMBER          reduce using rule 52 (operadorAritmetico -> MINUS .)
+    FLOAT           reduce using rule 52 (operadorAritmetico -> MINUS .)
+    STRING          reduce using rule 52 (operadorAritmetico -> MINUS .)
+    BOOLEAN         reduce using rule 52 (operadorAritmetico -> MINUS .)
+
+
+state 73
+
+    (53) operadorAritmetico -> TIMES .
+
+    VARIABLE        reduce using rule 53 (operadorAritmetico -> TIMES .)
+    NUMBER          reduce using rule 53 (operadorAritmetico -> TIMES .)
+    FLOAT           reduce using rule 53 (operadorAritmetico -> TIMES .)
+    STRING          reduce using rule 53 (operadorAritmetico -> TIMES .)
+    BOOLEAN         reduce using rule 53 (operadorAritmetico -> TIMES .)
+
+
+state 74
+
+    (54) operadorAritmetico -> DIVIDE .
+
+    VARIABLE        reduce using rule 54 (operadorAritmetico -> DIVIDE .)
+    NUMBER          reduce using rule 54 (operadorAritmetico -> DIVIDE .)
+    FLOAT           reduce using rule 54 (operadorAritmetico -> DIVIDE .)
+    STRING          reduce using rule 54 (operadorAritmetico -> DIVIDE .)
+    BOOLEAN         reduce using rule 54 (operadorAritmetico -> DIVIDE .)
+
+
+state 75
+
+    (55) operadorAritmetico -> MOD .
+
+    VARIABLE        reduce using rule 55 (operadorAritmetico -> MOD .)
+    NUMBER          reduce using rule 55 (operadorAritmetico -> MOD .)
+    FLOAT           reduce using rule 55 (operadorAritmetico -> MOD .)
+    STRING          reduce using rule 55 (operadorAritmetico -> MOD .)
+    BOOLEAN         reduce using rule 55 (operadorAritmetico -> MOD .)
+
+
+state 76
+
+    (59) operadorRelacional -> GREATER .
+
+    VARIABLE        reduce using rule 59 (operadorRelacional -> GREATER .)
+    NUMBER          reduce using rule 59 (operadorRelacional -> GREATER .)
+    FLOAT           reduce using rule 59 (operadorRelacional -> GREATER .)
+    STRING          reduce using rule 59 (operadorRelacional -> GREATER .)
+    BOOLEAN         reduce using rule 59 (operadorRelacional -> GREATER .)
+
+
+state 77
+
+    (60) operadorRelacional -> LESS .
+
+    VARIABLE        reduce using rule 60 (operadorRelacional -> LESS .)
+    NUMBER          reduce using rule 60 (operadorRelacional -> LESS .)
+    FLOAT           reduce using rule 60 (operadorRelacional -> LESS .)
+    STRING          reduce using rule 60 (operadorRelacional -> LESS .)
+    BOOLEAN         reduce using rule 60 (operadorRelacional -> LESS .)
+
+
+state 78
+
+    (61) operadorRelacional -> EQUALS .
+
+    VARIABLE        reduce using rule 61 (operadorRelacional -> EQUALS .)
+    NUMBER          reduce using rule 61 (operadorRelacional -> EQUALS .)
+    FLOAT           reduce using rule 61 (operadorRelacional -> EQUALS .)
+    STRING          reduce using rule 61 (operadorRelacional -> EQUALS .)
+    BOOLEAN         reduce using rule 61 (operadorRelacional -> EQUALS .)
+
+
+state 79
+
+    (62) operadorRelacional -> DIFFERENT .
+
+    VARIABLE        reduce using rule 62 (operadorRelacional -> DIFFERENT .)
+    NUMBER          reduce using rule 62 (operadorRelacional -> DIFFERENT .)
+    FLOAT           reduce using rule 62 (operadorRelacional -> DIFFERENT .)
+    STRING          reduce using rule 62 (operadorRelacional -> DIFFERENT .)
+    BOOLEAN         reduce using rule 62 (operadorRelacional -> DIFFERENT .)
+
+
+state 80
+
+    (63) operadorRelacional -> GREATER_EQUALS .
+
+    VARIABLE        reduce using rule 63 (operadorRelacional -> GREATER_EQUALS .)
+    NUMBER          reduce using rule 63 (operadorRelacional -> GREATER_EQUALS .)
+    FLOAT           reduce using rule 63 (operadorRelacional -> GREATER_EQUALS .)
+    STRING          reduce using rule 63 (operadorRelacional -> GREATER_EQUALS .)
+    BOOLEAN         reduce using rule 63 (operadorRelacional -> GREATER_EQUALS .)
+
+
+state 81
+
+    (64) operadorRelacional -> LESS_EQUALS .
+
+    VARIABLE        reduce using rule 64 (operadorRelacional -> LESS_EQUALS .)
+    NUMBER          reduce using rule 64 (operadorRelacional -> LESS_EQUALS .)
+    FLOAT           reduce using rule 64 (operadorRelacional -> LESS_EQUALS .)
+    STRING          reduce using rule 64 (operadorRelacional -> LESS_EQUALS .)
+    BOOLEAN         reduce using rule 64 (operadorRelacional -> LESS_EQUALS .)
+
+
+state 82
+
+    (75) readline -> READLINE LPAREN . STRING RPAREN
+
+    STRING          shift and go to state 95
+
+
+state 83
+
+    (68) arregloIndexado -> LCOR datos_comma . RCOR
+
+    RCOR            shift and go to state 96
+
+
+state 84
+
+    (65) arregloDeclarado -> LCOR NEWLINE . cuerpoArregloDeclarado NEWLINE RCOR
+    (66) cuerpoArregloDeclarado -> . datos ASSIGNATION datos
+    (67) cuerpoArregloDeclarado -> . datos ASSIGNATION datos COMMA NEWLINE cuerpoArregloDeclarado
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    cuerpoArregloDeclarado         shift and go to state 97
+    datos                          shift and go to state 98
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 85
+
+    (70) datos_comma -> datos .
+    (71) datos_comma -> datos . COMMA datos_comma
+
+    RCOR            reduce using rule 70 (datos_comma -> datos .)
+    RPAREN          reduce using rule 70 (datos_comma -> datos .)
+    COMMA           shift and go to state 99
+
+
+state 86
+
+    (69) funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma . RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+
+    RPAREN          shift and go to state 100
+
+
+state 87
+
+    (18) if -> IF LPAREN operacionRelacional RPAREN . LKEY NEWLINE programa RKEY
+    (19) if -> IF LPAREN operacionRelacional RPAREN . LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+
+    LKEY            shift and go to state 101
+
+
+state 88
+
+    (20) for -> FOR LPAREN VARIABLE ASSIGNATION . programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+    (1) programa -> . bloque
+    (2) programa -> . bloque programa
+    (3) programa -> . comment bloque programa
+    (6) bloque -> . sentencia NEWLINE
+    (7) bloque -> . sentencia
+    (8) bloque -> . NEWLINE
+    (4) comment -> . COMMENT1
+    (5) comment -> . COMMENT1 NEWLINE
+    (9) sentencia -> . print
+    (10) sentencia -> . asignacion
+    (11) sentencia -> . funcion
+    (12) sentencia -> . if
+    (13) sentencia -> . for
+    (15) print -> . ECHO datos SEMICOLON
+    (16) print -> . ECHO SEMICOLON
+    (17) print -> . ECHO argumentos SEMICOLON
+    (14) asignacion -> . VARIABLE ASSIGN expresion SEMICOLON
+    (69) funcion -> . FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+    (18) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+    (20) for -> . FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    NEWLINE         shift and go to state 5
+    COMMENT1        shift and go to state 6
+    ECHO            shift and go to state 12
+    VARIABLE        shift and go to state 13
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 15
+    FOR             shift and go to state 16
+
+    programa                       shift and go to state 102
+    bloque                         shift and go to state 2
+    comment                        shift and go to state 3
+    sentencia                      shift and go to state 4
+    print                          shift and go to state 7
+    asignacion                     shift and go to state 8
+    funcion                        shift and go to state 9
+    if                             shift and go to state 10
+    for                            shift and go to state 11
+
+state 89
+
+    (22) expresion -> FUNCTION_NAME LPAREN argumentos . RPAREN
+
+    RPAREN          shift and go to state 103
+
+
+state 90
+
+    (48) operacionLogica -> operacionRelacional operadorLogico operacionRelacional .
+    (48) operacionLogica -> operacionRelacional . operadorLogico operacionRelacional
+    (49) operacionLogica -> operacionRelacional . operadorLogico operacionLogica
+    (56) operadorLogico -> . LOGICAL_AND
+    (57) operadorLogico -> . LOGICAL_OR
+    (58) operadorLogico -> . LOGICAL_NOT
+
+    SEMICOLON       reduce using rule 48 (operacionLogica -> operacionRelacional operadorLogico operacionRelacional .)
+    LOGICAL_AND     shift and go to state 57
+    LOGICAL_OR      shift and go to state 58
+    LOGICAL_NOT     shift and go to state 59
+
+    operadorLogico                 shift and go to state 68
+
+state 91
+
+    (49) operacionLogica -> operacionRelacional operadorLogico operacionLogica .
+
+    SEMICOLON       reduce using rule 49 (operacionLogica -> operacionRelacional operadorLogico operacionLogica .)
+
+
+state 92
+
+    (44) operacionAritmetica -> datos operadorAritmetico datos .
+    (44) operacionAritmetica -> datos . operadorAritmetico datos
+    (45) operacionAritmetica -> datos . operadorAritmetico operacionAritmetica
+    (51) operadorAritmetico -> . PLUS
+    (52) operadorAritmetico -> . MINUS
+    (53) operadorAritmetico -> . TIMES
+    (54) operadorAritmetico -> . DIVIDE
+    (55) operadorAritmetico -> . MOD
+
+    SEMICOLON       reduce using rule 44 (operacionAritmetica -> datos operadorAritmetico datos .)
+    PLUS            shift and go to state 71
+    MINUS           shift and go to state 72
+    TIMES           shift and go to state 73
+    DIVIDE          shift and go to state 74
+    MOD             shift and go to state 75
+
+    operadorAritmetico             shift and go to state 69
+
+state 93
+
+    (45) operacionAritmetica -> datos operadorAritmetico operacionAritmetica .
+
+    SEMICOLON       reduce using rule 45 (operacionAritmetica -> datos operadorAritmetico operacionAritmetica .)
+
+
+state 94
+
+    (50) operacionRelacional -> datos operadorRelacional datos .
+
+    LOGICAL_AND     reduce using rule 50 (operacionRelacional -> datos operadorRelacional datos .)
+    LOGICAL_OR      reduce using rule 50 (operacionRelacional -> datos operadorRelacional datos .)
+    LOGICAL_NOT     reduce using rule 50 (operacionRelacional -> datos operadorRelacional datos .)
+    SEMICOLON       reduce using rule 50 (operacionRelacional -> datos operadorRelacional datos .)
+    RPAREN          reduce using rule 50 (operacionRelacional -> datos operadorRelacional datos .)
+
+
+state 95
+
+    (75) readline -> READLINE LPAREN STRING . RPAREN
+
+    RPAREN          shift and go to state 104
+
+
+state 96
+
+    (68) arregloIndexado -> LCOR datos_comma RCOR .
+
+    SEMICOLON       reduce using rule 68 (arregloIndexado -> LCOR datos_comma RCOR .)
+
+
+state 97
+
+    (65) arregloDeclarado -> LCOR NEWLINE cuerpoArregloDeclarado . NEWLINE RCOR
+
+    NEWLINE         shift and go to state 105
+
+
+state 98
+
+    (66) cuerpoArregloDeclarado -> datos . ASSIGNATION datos
+    (67) cuerpoArregloDeclarado -> datos . ASSIGNATION datos COMMA NEWLINE cuerpoArregloDeclarado
+
+    ASSIGNATION     shift and go to state 106
+
+
+state 99
+
+    (71) datos_comma -> datos COMMA . datos_comma
+    (70) datos_comma -> . datos
+    (71) datos_comma -> . datos COMMA datos_comma
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    datos                          shift and go to state 85
+    datos_comma                    shift and go to state 107
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 100
+
+    (69) funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN . LKEY NEWLINE cuerpoFuncion RKEY
+
+    LKEY            shift and go to state 108
+
+
+state 101
+
+    (18) if -> IF LPAREN operacionRelacional RPAREN LKEY . NEWLINE programa RKEY
+    (19) if -> IF LPAREN operacionRelacional RPAREN LKEY . NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+
+    NEWLINE         shift and go to state 109
+
+
+state 102
+
+    (20) for -> FOR LPAREN VARIABLE ASSIGNATION programa . SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    SEMICOLON       shift and go to state 110
+
+
+state 103
+
+    (22) expresion -> FUNCTION_NAME LPAREN argumentos RPAREN .
+
+    SEMICOLON       reduce using rule 22 (expresion -> FUNCTION_NAME LPAREN argumentos RPAREN .)
+
+
+state 104
+
+    (75) readline -> READLINE LPAREN STRING RPAREN .
+
+    SEMICOLON       reduce using rule 75 (readline -> READLINE LPAREN STRING RPAREN .)
+
+
+state 105
+
+    (65) arregloDeclarado -> LCOR NEWLINE cuerpoArregloDeclarado NEWLINE . RCOR
+
+    RCOR            shift and go to state 111
+
+
+state 106
+
+    (66) cuerpoArregloDeclarado -> datos ASSIGNATION . datos
+    (67) cuerpoArregloDeclarado -> datos ASSIGNATION . datos COMMA NEWLINE cuerpoArregloDeclarado
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    datos                          shift and go to state 112
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 107
+
+    (71) datos_comma -> datos COMMA datos_comma .
+
+    RCOR            reduce using rule 71 (datos_comma -> datos COMMA datos_comma .)
+    RPAREN          reduce using rule 71 (datos_comma -> datos COMMA datos_comma .)
+
+
+state 108
+
+    (69) funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY . NEWLINE cuerpoFuncion RKEY
+
+    NEWLINE         shift and go to state 113
+
+
+state 109
+
+    (18) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE . programa RKEY
+    (19) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE . programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+    (1) programa -> . bloque
+    (2) programa -> . bloque programa
+    (3) programa -> . comment bloque programa
+    (6) bloque -> . sentencia NEWLINE
+    (7) bloque -> . sentencia
+    (8) bloque -> . NEWLINE
+    (4) comment -> . COMMENT1
+    (5) comment -> . COMMENT1 NEWLINE
+    (9) sentencia -> . print
+    (10) sentencia -> . asignacion
+    (11) sentencia -> . funcion
+    (12) sentencia -> . if
+    (13) sentencia -> . for
+    (15) print -> . ECHO datos SEMICOLON
+    (16) print -> . ECHO SEMICOLON
+    (17) print -> . ECHO argumentos SEMICOLON
+    (14) asignacion -> . VARIABLE ASSIGN expresion SEMICOLON
+    (69) funcion -> . FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+    (18) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+    (20) for -> . FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    NEWLINE         shift and go to state 5
+    COMMENT1        shift and go to state 6
+    ECHO            shift and go to state 12
+    VARIABLE        shift and go to state 13
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 15
+    FOR             shift and go to state 16
+
+    programa                       shift and go to state 114
+    bloque                         shift and go to state 2
+    comment                        shift and go to state 3
+    sentencia                      shift and go to state 4
+    print                          shift and go to state 7
+    asignacion                     shift and go to state 8
+    funcion                        shift and go to state 9
+    if                             shift and go to state 10
+    for                            shift and go to state 11
+
+state 110
+
+    (20) for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON . VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    VARIABLE        shift and go to state 115
+
+
+state 111
+
+    (65) arregloDeclarado -> LCOR NEWLINE cuerpoArregloDeclarado NEWLINE RCOR .
+
+    SEMICOLON       reduce using rule 65 (arregloDeclarado -> LCOR NEWLINE cuerpoArregloDeclarado NEWLINE RCOR .)
+
+
+state 112
+
+    (66) cuerpoArregloDeclarado -> datos ASSIGNATION datos .
+    (67) cuerpoArregloDeclarado -> datos ASSIGNATION datos . COMMA NEWLINE cuerpoArregloDeclarado
+
+    NEWLINE         reduce using rule 66 (cuerpoArregloDeclarado -> datos ASSIGNATION datos .)
+    COMMA           shift and go to state 116
+
+
+state 113
+
+    (69) funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE . cuerpoFuncion RKEY
+    (72) cuerpoFuncion -> . programa RETURN expresion SEMICOLON
+    (73) cuerpoFuncion -> . programa
+    (74) cuerpoFuncion -> . RETURN expresion SEMICOLON
+    (1) programa -> . bloque
+    (2) programa -> . bloque programa
+    (3) programa -> . comment bloque programa
+    (6) bloque -> . sentencia NEWLINE
+    (7) bloque -> . sentencia
+    (8) bloque -> . NEWLINE
+    (4) comment -> . COMMENT1
+    (5) comment -> . COMMENT1 NEWLINE
+    (9) sentencia -> . print
+    (10) sentencia -> . asignacion
+    (11) sentencia -> . funcion
+    (12) sentencia -> . if
+    (13) sentencia -> . for
+    (15) print -> . ECHO datos SEMICOLON
+    (16) print -> . ECHO SEMICOLON
+    (17) print -> . ECHO argumentos SEMICOLON
+    (14) asignacion -> . VARIABLE ASSIGN expresion SEMICOLON
+    (69) funcion -> . FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+    (18) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+    (20) for -> . FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    RETURN          shift and go to state 119
+    NEWLINE         shift and go to state 5
+    COMMENT1        shift and go to state 6
+    ECHO            shift and go to state 12
+    VARIABLE        shift and go to state 13
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 15
+    FOR             shift and go to state 16
+
+    cuerpoFuncion                  shift and go to state 117
+    programa                       shift and go to state 118
+    bloque                         shift and go to state 2
+    comment                        shift and go to state 3
+    sentencia                      shift and go to state 4
+    print                          shift and go to state 7
+    asignacion                     shift and go to state 8
+    funcion                        shift and go to state 9
+    if                             shift and go to state 10
+    for                            shift and go to state 11
+
+state 114
+
+    (18) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa . RKEY
+    (19) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa . RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+
+    RKEY            shift and go to state 120
+
+
+state 115
+
+    (20) for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE . operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+    (59) operadorRelacional -> . GREATER
+    (60) operadorRelacional -> . LESS
+    (61) operadorRelacional -> . EQUALS
+    (62) operadorRelacional -> . DIFFERENT
+    (63) operadorRelacional -> . GREATER_EQUALS
+    (64) operadorRelacional -> . LESS_EQUALS
+
+    GREATER         shift and go to state 76
+    LESS            shift and go to state 77
+    EQUALS          shift and go to state 78
+    DIFFERENT       shift and go to state 79
+    GREATER_EQUALS  shift and go to state 80
+    LESS_EQUALS     shift and go to state 81
+
+    operadorRelacional             shift and go to state 121
+
+state 116
+
+    (67) cuerpoArregloDeclarado -> datos ASSIGNATION datos COMMA . NEWLINE cuerpoArregloDeclarado
+
+    NEWLINE         shift and go to state 122
+
+
+state 117
+
+    (69) funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion . RKEY
+
+    RKEY            shift and go to state 123
+
+
+state 118
+
+    (72) cuerpoFuncion -> programa . RETURN expresion SEMICOLON
+    (73) cuerpoFuncion -> programa .
+
+    RETURN          shift and go to state 124
+    RKEY            reduce using rule 73 (cuerpoFuncion -> programa .)
+
+
+state 119
+
+    (74) cuerpoFuncion -> RETURN . expresion SEMICOLON
+    (21) expresion -> . argumentos
+    (22) expresion -> . FUNCTION_NAME LPAREN argumentos RPAREN
+    (23) expresion -> . operacionAritmetica
+    (24) expresion -> . operacionRelacional
+    (25) expresion -> . readline
+    (26) expresion -> . arregloIndexado
+    (27) expresion -> . arregloDeclarado
+    (28) expresion -> . operacionLogica
+    (29) expresion -> . operadorLogico
+    (30) expresion -> . ASSIGN_ADD
+    (31) expresion -> . ASSIGN_SUB
+    (32) argumentos -> . datos
+    (33) argumentos -> . datos conector argumentos
+    (44) operacionAritmetica -> . datos operadorAritmetico datos
+    (45) operacionAritmetica -> . datos operadorAritmetico operacionAritmetica
+    (50) operacionRelacional -> . datos operadorRelacional datos
+    (75) readline -> . READLINE LPAREN STRING RPAREN
+    (68) arregloIndexado -> . LCOR datos_comma RCOR
+    (65) arregloDeclarado -> . LCOR NEWLINE cuerpoArregloDeclarado NEWLINE RCOR
+    (48) operacionLogica -> . operacionRelacional operadorLogico operacionRelacional
+    (49) operacionLogica -> . operacionRelacional operadorLogico operacionLogica
+    (56) operadorLogico -> . LOGICAL_AND
+    (57) operadorLogico -> . LOGICAL_OR
+    (58) operadorLogico -> . LOGICAL_NOT
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    FUNCTION_NAME   shift and go to state 44
+    ASSIGN_ADD      shift and go to state 52
+    ASSIGN_SUB      shift and go to state 53
+    READLINE        shift and go to state 55
+    LCOR            shift and go to state 56
+    LOGICAL_AND     shift and go to state 57
+    LOGICAL_OR      shift and go to state 58
+    LOGICAL_NOT     shift and go to state 59
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    expresion                      shift and go to state 125
+    argumentos                     shift and go to state 43
+    operacionAritmetica            shift and go to state 45
+    operacionRelacional            shift and go to state 46
+    readline                       shift and go to state 47
+    arregloIndexado                shift and go to state 48
+    arregloDeclarado               shift and go to state 49
+    operacionLogica                shift and go to state 50
+    operadorLogico                 shift and go to state 51
+    datos                          shift and go to state 54
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 120
+
+    (18) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .
+    (19) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY . ELSE LKEY NEWLINE programa RKEY NEWLINE
+
+    NEWLINE         reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    COMMENT1        reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    ECHO            reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    VARIABLE        reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    FUNCTION        reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    IF              reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    FOR             reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    $end            reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    SEMICOLON       reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    RKEY            reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    RETURN          reduce using rule 18 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY .)
+    ELSE            shift and go to state 126
+
+
+state 121
+
+    (20) for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional . datos SEMICOLON operacionModificadoras RPAREN
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    datos                          shift and go to state 127
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 122
+
+    (67) cuerpoArregloDeclarado -> datos ASSIGNATION datos COMMA NEWLINE . cuerpoArregloDeclarado
+    (66) cuerpoArregloDeclarado -> . datos ASSIGNATION datos
+    (67) cuerpoArregloDeclarado -> . datos ASSIGNATION datos COMMA NEWLINE cuerpoArregloDeclarado
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    datos                          shift and go to state 98
+    cuerpoArregloDeclarado         shift and go to state 128
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 123
+
+    (69) funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .
+
+    NEWLINE         reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+    COMMENT1        reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+    ECHO            reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+    VARIABLE        reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+    FUNCTION        reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+    IF              reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+    FOR             reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+    $end            reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+    SEMICOLON       reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+    RKEY            reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+    RETURN          reduce using rule 69 (funcion -> FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY .)
+
+
+state 124
+
+    (72) cuerpoFuncion -> programa RETURN . expresion SEMICOLON
+    (21) expresion -> . argumentos
+    (22) expresion -> . FUNCTION_NAME LPAREN argumentos RPAREN
+    (23) expresion -> . operacionAritmetica
+    (24) expresion -> . operacionRelacional
+    (25) expresion -> . readline
+    (26) expresion -> . arregloIndexado
+    (27) expresion -> . arregloDeclarado
+    (28) expresion -> . operacionLogica
+    (29) expresion -> . operadorLogico
+    (30) expresion -> . ASSIGN_ADD
+    (31) expresion -> . ASSIGN_SUB
+    (32) argumentos -> . datos
+    (33) argumentos -> . datos conector argumentos
+    (44) operacionAritmetica -> . datos operadorAritmetico datos
+    (45) operacionAritmetica -> . datos operadorAritmetico operacionAritmetica
+    (50) operacionRelacional -> . datos operadorRelacional datos
+    (75) readline -> . READLINE LPAREN STRING RPAREN
+    (68) arregloIndexado -> . LCOR datos_comma RCOR
+    (65) arregloDeclarado -> . LCOR NEWLINE cuerpoArregloDeclarado NEWLINE RCOR
+    (48) operacionLogica -> . operacionRelacional operadorLogico operacionRelacional
+    (49) operacionLogica -> . operacionRelacional operadorLogico operacionLogica
+    (56) operadorLogico -> . LOGICAL_AND
+    (57) operadorLogico -> . LOGICAL_OR
+    (58) operadorLogico -> . LOGICAL_NOT
+    (36) datos -> . d_numericos
+    (37) datos -> . d_strings
+    (38) datos -> . d_booleanos
+    (39) datos -> . VARIABLE
+    (40) d_numericos -> . NUMBER
+    (41) d_numericos -> . FLOAT
+    (42) d_strings -> . STRING
+    (43) d_booleanos -> . BOOLEAN
+
+    FUNCTION_NAME   shift and go to state 44
+    ASSIGN_ADD      shift and go to state 52
+    ASSIGN_SUB      shift and go to state 53
+    READLINE        shift and go to state 55
+    LCOR            shift and go to state 56
+    LOGICAL_AND     shift and go to state 57
+    LOGICAL_OR      shift and go to state 58
+    LOGICAL_NOT     shift and go to state 59
+    VARIABLE        shift and go to state 27
+    NUMBER          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    BOOLEAN         shift and go to state 31
+
+    expresion                      shift and go to state 129
+    argumentos                     shift and go to state 43
+    operacionAritmetica            shift and go to state 45
+    operacionRelacional            shift and go to state 46
+    readline                       shift and go to state 47
+    arregloIndexado                shift and go to state 48
+    arregloDeclarado               shift and go to state 49
+    operacionLogica                shift and go to state 50
+    operadorLogico                 shift and go to state 51
+    datos                          shift and go to state 54
+    d_numericos                    shift and go to state 24
+    d_strings                      shift and go to state 25
+    d_booleanos                    shift and go to state 26
+
+state 125
+
+    (74) cuerpoFuncion -> RETURN expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 130
+
+
+state 126
+
+    (19) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE . LKEY NEWLINE programa RKEY NEWLINE
+
+    LKEY            shift and go to state 131
+
+
+state 127
+
+    (20) for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos . SEMICOLON operacionModificadoras RPAREN
+
+    SEMICOLON       shift and go to state 132
+
+
+state 128
+
+    (67) cuerpoArregloDeclarado -> datos ASSIGNATION datos COMMA NEWLINE cuerpoArregloDeclarado .
+
+    NEWLINE         reduce using rule 67 (cuerpoArregloDeclarado -> datos ASSIGNATION datos COMMA NEWLINE cuerpoArregloDeclarado .)
+
+
+state 129
+
+    (72) cuerpoFuncion -> programa RETURN expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 133
+
+
+state 130
+
+    (74) cuerpoFuncion -> RETURN expresion SEMICOLON .
+
+    RKEY            reduce using rule 74 (cuerpoFuncion -> RETURN expresion SEMICOLON .)
+
+
+state 131
+
+    (19) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY . NEWLINE programa RKEY NEWLINE
+
+    NEWLINE         shift and go to state 134
+
+
+state 132
+
+    (20) for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON . operacionModificadoras RPAREN
+    (46) operacionModificadoras -> . VARIABLE INCREMENT
+    (47) operacionModificadoras -> . VARIABLE DECREMENT
+
+    VARIABLE        shift and go to state 135
+
+    operacionModificadoras         shift and go to state 136
+
+state 133
+
+    (72) cuerpoFuncion -> programa RETURN expresion SEMICOLON .
+
+    RKEY            reduce using rule 72 (cuerpoFuncion -> programa RETURN expresion SEMICOLON .)
+
+
+state 134
+
+    (19) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE . programa RKEY NEWLINE
+    (1) programa -> . bloque
+    (2) programa -> . bloque programa
+    (3) programa -> . comment bloque programa
+    (6) bloque -> . sentencia NEWLINE
+    (7) bloque -> . sentencia
+    (8) bloque -> . NEWLINE
+    (4) comment -> . COMMENT1
+    (5) comment -> . COMMENT1 NEWLINE
+    (9) sentencia -> . print
+    (10) sentencia -> . asignacion
+    (11) sentencia -> . funcion
+    (12) sentencia -> . if
+    (13) sentencia -> . for
+    (15) print -> . ECHO datos SEMICOLON
+    (16) print -> . ECHO SEMICOLON
+    (17) print -> . ECHO argumentos SEMICOLON
+    (14) asignacion -> . VARIABLE ASSIGN expresion SEMICOLON
+    (69) funcion -> . FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+    (18) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
+    (19) if -> . IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE
+    (20) for -> . FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN
+
+    NEWLINE         shift and go to state 5
+    COMMENT1        shift and go to state 6
+    ECHO            shift and go to state 12
+    VARIABLE        shift and go to state 13
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 15
+    FOR             shift and go to state 16
+
+    programa                       shift and go to state 137
+    bloque                         shift and go to state 2
+    comment                        shift and go to state 3
+    sentencia                      shift and go to state 4
+    print                          shift and go to state 7
+    asignacion                     shift and go to state 8
+    funcion                        shift and go to state 9
+    if                             shift and go to state 10
+    for                            shift and go to state 11
+
+state 135
+
+    (46) operacionModificadoras -> VARIABLE . INCREMENT
+    (47) operacionModificadoras -> VARIABLE . DECREMENT
+
+    INCREMENT       shift and go to state 138
+    DECREMENT       shift and go to state 139
+
+
+state 136
+
+    (20) for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras . RPAREN
+
+    RPAREN          shift and go to state 140
+
+
+state 137
+
+    (19) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa . RKEY NEWLINE
+
+    RKEY            shift and go to state 141
+
+
+state 138
+
+    (46) operacionModificadoras -> VARIABLE INCREMENT .
+
+    RPAREN          reduce using rule 46 (operacionModificadoras -> VARIABLE INCREMENT .)
+
+
+state 139
+
+    (47) operacionModificadoras -> VARIABLE DECREMENT .
+
+    RPAREN          reduce using rule 47 (operacionModificadoras -> VARIABLE DECREMENT .)
+
+
+state 140
+
+    (20) for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .
+
+    NEWLINE         reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+    COMMENT1        reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+    ECHO            reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+    VARIABLE        reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+    FUNCTION        reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+    IF              reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+    FOR             reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+    $end            reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+    SEMICOLON       reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+    RKEY            reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+    RETURN          reduce using rule 20 (for -> FOR LPAREN VARIABLE ASSIGNATION programa SEMICOLON VARIABLE operadorRelacional datos SEMICOLON operacionModificadoras RPAREN .)
+
+
+state 141
+
+    (19) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY . NEWLINE
+
+    NEWLINE         shift and go to state 142
+
+
+state 142
+
+    (19) if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .
+
+    NEWLINE         reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+    COMMENT1        reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+    ECHO            reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+    VARIABLE        reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+    FUNCTION        reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+    IF              reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+    FOR             reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+    $end            reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+    SEMICOLON       reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+    RKEY            reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+    RETURN          reduce using rule 19 (if -> IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for NEWLINE in state 4 resolved as shift
+WARNING: shift/reduce conflict for NEWLINE in state 6 resolved as shift
+WARNING: shift/reduce conflict for SEMICOLON in state 21 resolved as shift
