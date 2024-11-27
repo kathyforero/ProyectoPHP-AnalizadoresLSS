@@ -1,0 +1,2 @@
+Errores de sintaxis detectados:
+Error de sintaxis en la línea 1: Token inesperado '5'

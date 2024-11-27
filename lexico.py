@@ -15,14 +15,12 @@ tokens = ('NUMBER',
           'VARIABLE', 
           'SEMICOLON', 
           'FLOAT', 
-          'PRINT', 
           'COMMA', 
           'LCOR',
           'RCOR', 
           'ECHO', 
           'IF', 
           'ELSE',
-          'ELSEIF',
           'STRING', 
           'BOOLEAN', 
           'ASSIGNATION',
@@ -34,14 +32,13 @@ tokens = ('NUMBER',
           'ASSIGN_SUB', 
           'LKEY', 
           'RKEY', 
-          'BREAK', 
           'FOR', 
           'INCREMENT',
           'DECREMENT', 
           'FUNCTION', 
+          'FUNCTION_NAME', 
           'RETURN', 
-          'COMMENT1', 
-          'COMMENT2',
+          'COMMENT1',
           'DIFFERENT',
           'COUNT',
           'GREATER',
@@ -50,8 +47,13 @@ tokens = ('NUMBER',
           'GREATER_EQUALS',
           'LESS_EQUALS',
           'READLINE',
-          'TRIM'
+          'PERIOD',
+          'NEWLINE'
     )
+
+states = (
+    ('funcname', 'exclusive'),  # Estado exclusivo para nombres de funciones
+)
 
 # Inicio aporte: David Ramírez
 # Regular expression rules for simple tokens
@@ -68,17 +70,13 @@ t_RKEY = r'}'
 t_MOD = r'\%'
 t_SEMICOLON = r';'
 t_COMMA = r','
-
+t_PERIOD = r'\.'
 # A regular expression rule with some action code
 
 
 #COMENTARIOS
 def t_COMMENT1(t):
-    r'//.*'
-    pass
-
-def t_COMMENT2(t):
-    r'//.*'
+    r'//.*|\#.*'
     pass
 
 # Fin aporte: David Ramírez
@@ -103,15 +101,6 @@ def t_ECHO(t):
     return t
 
 
-def t_ELSEIF(t):
-    r'(e|E)(l|L)(s|S)(e|E)(i|I)(f|F)'
-    return t
-
-
-def t_BREAK(t):
-    r'(b|B)(r|R)(e|E)(a|A)(k|K)'
-    return t
-
 # Fin aporte: Katherine Forero
 
 # Inicio aporte: David Ramírez
@@ -125,22 +114,20 @@ def t_ASSIGNATION(t):
     return t
 
 def t_FUNCTION(t):
-    r'\bfunction\s+[a-zA-Z_][a-zA-Z0-9_]*'
-    t.value = t.value.strip()
+    r'\bfunction\b'
+    t.lexer.begin('funcname')  # Cambia al estado 'funcname' al encontrar 'function'
     return t
 
-def t_COUNT(t):
-    r'(c|C)(o|O)(u|U)(n|N)(t|T)'
+def t_funcname_FUNCTION_NAME(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    t.type = 'FUNCTION_NAME'
+    t.lexer.begin('INITIAL')  # Vuelve al estado inicial después de encontrar el nombre de la función
     return t
 
 def t_READLINE(t):
     r'(r|R)(e|E)(a|A)(d|D)(l|L)(i|I)(n|N)(e|E)'
-    return t
+    return t 
 
-def t_TRIM(t):
-    r'(t|T)(r|R)(i|I)(m|M)'
-    return t   
-    
 # Fin aporte: David Ramírez
 
 # Inicio aporte: Katherine Forero
@@ -246,106 +233,28 @@ def t_VARIABLE(t):
 
 
 def t_NEWLINE(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+   r'\n+'
+   return t
 
 # Fin aporte: Katherine Forero
 
 #IGNORE
 t_ignore = ' \t'
 
+t_funcname_ignore = ' \t'
 
 #ERROR
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    print("Error Léxico: Caracter ilegal '%s'" % t.value[0])
     t.lexer.skip(1)
+    exit()
 
+# Manejo de errores en el estado 'funcname'
+def t_funcname_error(t):
+    print(f"Error Léxico: Caracter ilegal '{t.value[0]}'")
+    t.lexer.skip(1)
+    exit()
 
 #Construir el Lex
 lexer = lex.lex()
 
-# Test it out
-
-# Inicio aporte: Katherine Forero
-
-data1 = '''
-// Definir las dos variables
-$num1 = 10;
-$num2 = 5;
-
-// Función que realiza las operaciones
-function operaciones($a, $b) {
-    // Calcular cada operación
-    $suma = $a + $b;
-    $resta = $a - $b;
-    $multiplicacion = $a * $b;
-
-    // Usar un 'if' para verificar la división por cero
-    if ($b != 0) {
-        $division = $a / $b;
-    } else {
-        $division = 'No se puede dividir por cero';
-    }
-
-    // Devolver los resultados en un array
-    return [
-        "suma" => $suma,
-        "resta" => $resta,
-        "multiplicacion" => $multiplicacion,
-        "division" => $division
-    ];
-}
-'''
-
-# Fin aporte: Katherine Forero
-
-# Inicio aporte: David Ramírez
-
-data2 = '''
-// Definir el arreglo indexado
-$numeros = [10, 20, 30, 40, 50];
-
-// Función para sumar los elementos del arreglo usando un bucle for
-function sumaElementos($arr) {
-    // Inicializar la suma
-    $suma = 0;
-
-    // Recorrer el arreglo usando un bucle for
-    for ($i = 0; $i < count($arr); $i++) {
-        $suma += $arr[$i];  // Sumar cada elemento
-    }
-
-    // Devolver el resultado
-    return $suma;
-}
-'''
-
-
-data3 = '''
-$Dato = trim(readline("Ingrese un dato: "));
-echo $Dato;
-'''
-
-# Fin aporte: David Ramírez
-
-# Give the lexer some input
-lexer.input(data3)
-
-#CREACIÓN DE LOGS
-zona_horaria = pytz.timezone("America/Guayaquil")
-fecha_actual = datetime.now(zona_horaria)
-usuario = "DERS0214"  #se va cambiando el nombre del usuario según el caso
-algoritmo = "ALG3"
-fecha_act = fecha_actual.strftime("%d%m%Y-%Hh%M")
-os.makedirs("logs", exist_ok=True)
-nombre = algoritmo + "-lexico-" + usuario + "-" + fecha_act + ".txt"
-
-ruta_archivo = os.path.join("logs", nombre)
-with open(ruta_archivo, "w") as archivo:
-    # Tokenize
-    while True:
-        tok = lexer.token()
-        if not tok:
-            break  # No more input
-        print(tok)
-        archivo.write(str(tok) + "\n")
