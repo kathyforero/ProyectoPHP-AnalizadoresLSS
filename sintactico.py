@@ -33,8 +33,8 @@ def p_asignacion(p):
   '''asignacion : VARIABLE ASSIGN expresion SEMICOLON'''
 
 def p_variable_incremento_decremento(p):
-  '''variable : VARIABLE ASSIGN_ADD d_numericos
-  | VARIABLE ASSIGN_SUB d_numericos'''
+  '''variable : VARIABLE ASSIGN_ADD datos SEMICOLON
+  | VARIABLE ASSIGN_SUB datos SEMICOLON'''
 
 def p_print(p):
   '''print : ECHO datos SEMICOLON

@@ -7,8 +7,7 @@ from semantico import parser as parser_semantico
 
 
 dato2 = """
-
-
+$a -= 2;
 """
 
 result = parser_sintactico.parse(dato2)

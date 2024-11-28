@@ -38,9 +38,16 @@ def p_asignacion(p):
   var_name = p[1]
   variables_existentes.add(var_name)
 
+# REGLA SEMÁNTICA 5
+
 def p_variable_incremento_decremento(p):
-  '''variable : VARIABLE ASSIGN_ADD d_numericos
-  | VARIABLE ASSIGN_SUB d_numericos'''
+  '''variable : VARIABLE ASSIGN_ADD d_numericos SEMICOLON
+  | VARIABLE ASSIGN_SUB d_numericos SEMICOLON'''
+
+def p_variable_incremento_decremento_error(p):
+  '''variable : VARIABLE ASSIGN_ADD error SEMICOLON
+  | VARIABLE ASSIGN_SUB error SEMICOLON'''
+  print("Error semántico: Se ha encontrado un error. Para acumular solo se permiten datos numéricos.")
 
 def p_print(p):
   '''print : ECHO datos SEMICOLON
