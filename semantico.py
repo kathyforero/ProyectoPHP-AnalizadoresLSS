@@ -23,12 +23,24 @@ def p_bloque(p):
 def p_sentencia(p):
   '''sentencia : print
     | asignacion
+    | variable
     | funcion 
     | if 
-    | for'''
+    | for
+    | invocar'''
+
+# REGLA SINTÁCTICA 3
+
+variables_existentes = set()
 
 def p_asignacion(p):
   '''asignacion : VARIABLE ASSIGN expresion SEMICOLON'''
+  var_name = p[1]
+  variables_existentes.add(var_name)
+
+def p_variable_incremento_decremento(p):
+  '''variable : VARIABLE ASSIGN_ADD d_numericos
+  | VARIABLE ASSIGN_SUB d_numericos'''
 
 def p_print(p):
   '''print : ECHO datos SEMICOLON
@@ -44,7 +56,7 @@ def p_for(p):
 
 def p_expresion(p):
   '''expresion : argumentos
-    | FUNCTION_NAME LPAREN argumentos RPAREN
+    | invocar
     | operacionAritmetica
     | operacionRelacional
     | readline
@@ -52,18 +64,38 @@ def p_expresion(p):
     | arregloDeclarado
     | operacionLogica
     | operadorLogico
-    | ASSIGN_ADD
-    | ASSIGN_SUB'''
+  '''
 
-def p_argumentos(p):
-  '''argumentos : datos
-    | datos COMMA argumentos'''
+# REGLA SINTÁCTICA 3 (CONTINUACIÓN)
 
-def p_datos(p):
-  ''' datos : d_numericos
-    | d_strings
-    | d_booleanos
-    | VARIABLE'''
+def p_argumentos_multiple(p):
+  '''argumentos : datos COMMA argumentos'''
+
+def p_argumentos_single(p):
+  '''argumentos : datos'''
+  p[0] = p[1]
+
+def p_datos_variable(p):
+  '''datos : VARIABLE'''
+  var_name = p[1]
+  if var_name not in variables_existentes:
+    print(f"Error semántico: Variable '{var_name}' no ha sido declarada.")
+  p[0] = var_name
+
+
+def p_datos_string(p):
+  '''datos : d_strings'''
+  p[0] = p[1]
+
+
+def p_datos_number(p):
+  '''datos : d_numericos'''
+  p[0] = str(p[1])
+
+
+def p_datos_boolean(p):
+  '''datos : d_booleanos'''
+  p[0] = p[1]
 
 def p_d_numericos(p):
   '''d_numericos : NUMBER
@@ -75,18 +107,16 @@ def p_d_strings(p):
 def p_d_booleanos(p):
   '''d_booleanos : BOOLEAN'''
 
-#REGLA SEMANTICA 1
+# REGLA SEMANTICA 1
+
 def p_operacionAritmetica(p):
   '''operacionAritmetica : d_numericos operadorAritmetico d_numericos
   | d_numericos operadorAritmetico operacionAritmetica'''
 # 3 + 5
 
-errores_sintacticos = []
-
 def p_operacionAritmetica_error(p):
   '''operacionAritmetica : d_numericos operadorAritmetico error'''
-
-  print("Error: Se ha encontrado un error en la expresión aritmética. Operación incorrecta.")
+  print("Error semántico: Se ha encontrado un error en la expresión aritmética. Operación incorrecta.")
 
 
 def p_operacionModificadoras(p):
@@ -104,11 +134,16 @@ def p_operacionRelacional(p):
   | operacionRelacionalNumerica'''
 
 def p_operacionRelacionalGeneral(p):
-  '''operacionRelacionalGeneral : VARIABLE operadorRelacionalGeneral datos'''
+  '''operacionRelacionalGeneral : datos operadorRelacionalGeneral datos'''
 
 #REGLA SEMANTICA 2
+
 def p_operacionRelacionalNumerica(p):
-  '''operacionRelacionalNumerica : VARIABLE operadorRelacionalNumerico d_numericos'''
+  '''operacionRelacionalNumerica : datos operadorRelacionalNumerico d_numericos'''
+
+def p_operacionRelacionalNumerica_error(p):
+  '''operacionRelacionalNumerica : datos operadorRelacionalNumerico error'''
+  print("Error semántico: Se ha encontrado un error en la expresión relacional. El segundo objeto de la comparación debe ser numérico.")
 
 def p_operadorAritmetico(p):
   ''' operadorAritmetico : PLUS
@@ -143,9 +178,33 @@ def p_cuerpoArregloDeclarado(p):
 def p_arregloIndexado(p):
   '''arregloIndexado : LCOR datos_comma RCOR'''
 
+# REGLA SEMÁNTICA 4
+
+funciones_existentes = set()
+
 def p_funcion(p):
-  '''funcion : FUNCTION FUNCTION_NAME LPAREN datos_comma RPAREN LKEY NEWLINE cuerpoFuncion RKEY 
+  '''funcion : FUNCTION FUNCTION_NAME LPAREN argumentosFuncion RPAREN LKEY NEWLINE cuerpoFuncion RKEY
   | FUNCTION FUNCTION_NAME LPAREN RPAREN LKEY NEWLINE cuerpoFuncion RKEY'''
+  fun_name = p[2]
+  funciones_existentes.add(fun_name)
+
+def p_invocar_funcion(p):
+  '''invocar : FUNCTION_NAME LPAREN datos_comma RPAREN SEMICOLON
+  | FUNCTION_NAME LPAREN RPAREN SEMICOLON'''
+  fun_name = p[1]
+  if fun_name not in funciones_existentes:
+    print(f"Error semántico: Función '{fun_name}' no ha sido creada.")
+
+
+def p_argumentos_funcion(p):
+  '''argumentosFuncion : argumentoFuncion
+  | argumentoFuncion argumentosFuncion'''
+
+def p_argumento_funcion(p):
+  '''argumentoFuncion : d_numericos
+  | d_strings
+  | d_booleanos
+  | VARIABLE'''
 
 def p_datos_comma(p):
   '''datos_comma : datos

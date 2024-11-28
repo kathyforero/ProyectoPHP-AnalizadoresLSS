@@ -236,6 +236,12 @@ def t_NEWLINE(t):
    r'\n+'
    return t
 
+# NOMBRE DE FUNCIÓN FUERA DE RESTRICCIONES
+
+def t_FUNCTION_NAME(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    return t
+
 # Fin aporte: Katherine Forero
 
 #IGNORE
