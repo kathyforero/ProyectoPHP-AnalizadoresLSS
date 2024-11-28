@@ -29,8 +29,11 @@ def p_sentencia(p):
     | for
     | invocar'''
 
-# REGLA SINTÁCTICA 3
 
+
+##################################################################################################
+# REGLA SEMÁNTICA 3
+#VERIFICAR QUE LAS VARIABLES EXISTAN AL IMPRIMIR
 variables_existentes = set()
 
 def p_asignacion(p):
@@ -38,8 +41,11 @@ def p_asignacion(p):
   var_name = p[1]
   variables_existentes.add(var_name)
 
-# REGLA SEMÁNTICA 5
 
+
+########################################################################################################
+# REGLA SEMÁNTICA 5
+#INCREMENTAR Y DECREMENTAR VARIABLES NUMÉRICAS 
 def p_variable_incremento_decremento(p):
   '''variable : VARIABLE ASSIGN_ADD d_numericos SEMICOLON
   | VARIABLE ASSIGN_SUB d_numericos SEMICOLON'''
@@ -73,7 +79,8 @@ def p_expresion(p):
     | operadorLogico
   '''
 
-# REGLA SINTÁCTICA 3 (CONTINUACIÓN)
+###################################################################################
+# REGLA SEMÁNTICA 3 (CONTINUACIÓN)
 
 def p_argumentos_multiple(p):
   '''argumentos : datos COMMA argumentos'''
@@ -104,6 +111,9 @@ def p_datos_boolean(p):
   '''datos : d_booleanos'''
   p[0] = p[1]
 
+
+
+
 def p_d_numericos(p):
   '''d_numericos : NUMBER
     | FLOAT'''
@@ -114,8 +124,11 @@ def p_d_strings(p):
 def p_d_booleanos(p):
   '''d_booleanos : BOOLEAN'''
 
-# REGLA SEMANTICA 1
 
+
+##########################################################################
+# REGLA SEMÁNTICA 1
+#REGLA PARA EXPRESIONES ARI TMÉTICAS SOLOS PARA DATOS NUMÉRICOS
 def p_operacionAritmetica(p):
   '''operacionAritmetica : d_numericos operadorAritmetico d_numericos
   | d_numericos operadorAritmetico operacionAritmetica'''
@@ -126,6 +139,7 @@ def p_operacionAritmetica_error(p):
   print("Error semántico: Se ha encontrado un error en la expresión aritmética. Operación incorrecta.")
 
 
+
 def p_operacionModificadoras(p):
   '''operacionModificadoras : VARIABLE INCREMENT
     | VARIABLE DECREMENT'''
@@ -134,7 +148,6 @@ def p_operacionLogica(p):
   '''operacionLogica : operacionRelacional operadorLogico operacionRelacional
   | operacionRelacional operadorLogico operacionLogica
   | '''
-# true && true
 
 def p_operacionRelacional(p):
   '''operacionRelacional : operacionRelacionalGeneral
@@ -143,14 +156,20 @@ def p_operacionRelacional(p):
 def p_operacionRelacionalGeneral(p):
   '''operacionRelacionalGeneral : datos operadorRelacionalGeneral datos'''
 
-#REGLA SEMANTICA 2
 
+
+###################################################################
+#REGLA SEMÁNTICA 2
+#OPERACION PARA COMPARAR UN DATO (¡PHP PASA LOS STRING A 0 CUANDO COMPARA!) CON UN NÚMERO
 def p_operacionRelacionalNumerica(p):
   '''operacionRelacionalNumerica : datos operadorRelacionalNumerico d_numericos'''
 
 def p_operacionRelacionalNumerica_error(p):
   '''operacionRelacionalNumerica : datos operadorRelacionalNumerico error'''
   print("Error semántico: Se ha encontrado un error en la expresión relacional. El segundo objeto de la comparación debe ser numérico.")
+
+
+
 
 def p_operadorAritmetico(p):
   ''' operadorAritmetico : PLUS
@@ -185,8 +204,11 @@ def p_cuerpoArregloDeclarado(p):
 def p_arregloIndexado(p):
   '''arregloIndexado : LCOR datos_comma RCOR'''
 
-# REGLA SEMÁNTICA 4
 
+
+#######################################################
+# REGLA SEMÁNTICA 4
+#VALIDAR FUNCIONES EXISTENTES PARA SU INVOCACIÓN DENTRO DEL CODIGO
 funciones_existentes = set()
 
 def p_funcion(p):
@@ -201,6 +223,8 @@ def p_invocar_funcion(p):
   fun_name = p[1]
   if fun_name not in funciones_existentes:
     print(f"Error semántico: Función '{fun_name}' no ha sido creada.")
+
+    
 
 
 def p_argumentos_funcion(p):
@@ -229,22 +253,4 @@ def p_readline(p):
 def p_error(p):
   ""
 
-# Build the parser
 parser = yacc.yacc()
-
-
-# #CREACIÓN DE LOGS
-# zona_horaria = pytz.timezone("America/Guayaquil")
-# fecha_actual = datetime.now(zona_horaria)
-# usuario = "katherineforero"  #se va cambiando el nombre del usuario según el caso
-# fecha_act = fecha_actual.strftime("%d%m%Y-%Hh%M")
-# os.makedirs("logs_sintactico", exist_ok=True)
-# nombre = "sintactico-" + usuario + "-" + fecha_act + ".txt"
-
-# ruta_archivo = os.path.join("logs_sintactico", nombre)
-# with open(ruta_archivo, "w") as archivo:  
-#       if errores_sintacticos:
-#         archivo.write("Errores de sintaxis detectados:\n")
-#         archivo.write("\n".join(errores_sintacticos) + "\n")
-#       else:
-#         archivo.write(str(result) + "\n")
