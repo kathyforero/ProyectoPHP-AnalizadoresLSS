@@ -1,9 +1,14 @@
+import sys
+
 import pytz
 import ply.lex as lex
 from datetime import datetime
 import os
 
 # List of token names. This is always required
+
+errores = []
+
 tokens = ('NUMBER', 
           'PLUS', 
           'MINUS', 
@@ -251,15 +256,16 @@ t_funcname_ignore = ' \t'
 
 #ERROR
 def t_error(t):
+    global errores
     print("Error Léxico: Caracter ilegal '%s'" % t.value[0])
+    errores.append("Error Léxico: Caracter ilegal '%s'" % t.value[0])
     t.lexer.skip(1)
-    exit()
 
 # Manejo de errores en el estado 'funcname'
 def t_funcname_error(t):
     print(f"Error Léxico: Caracter ilegal '{t.value[0]}'")
+    errores.append(f"Error Léxico: Caracter ilegal '{t.value[0]}'")
     t.lexer.skip(1)
-    exit()
 
 #Construir el Lex
 lexer = lex.lex()

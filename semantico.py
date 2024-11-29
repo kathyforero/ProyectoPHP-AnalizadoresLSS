@@ -5,6 +5,8 @@ import ply.yacc as yacc
 
 from lexico import tokens
 
+errores3 = []
+
 def p_programa(p):
   '''programa : bloque
      | bloque programa
@@ -48,6 +50,7 @@ def p_variable_incremento_decremento_error(p):
   '''variable : VARIABLE ASSIGN_ADD error SEMICOLON
   | VARIABLE ASSIGN_SUB error SEMICOLON'''
   print("Error semántico: Se ha encontrado un error. Para acumular solo se permiten datos numéricos.")
+  errores3.append("Error semántico: Se ha encontrado un error. Para acumular solo se permiten datos numéricos.")
 
 def p_print(p):
   '''print : ECHO datos SEMICOLON
@@ -59,7 +62,7 @@ def p_if(p):
     | IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE'''
 
 def p_for(p):
-  '''for : FOR LPAREN VARIABLE ASSIGN datos SEMICOLON VARIABLE operadorRelacionalNumerico datos SEMICOLON operacionModificadoras RPAREN LKEY NEWLINE programa RKEY NEWLINE'''
+  '''for : FOR LPAREN asignacion VARIABLE operadorRelacionalNumerico datos SEMICOLON operacionModificadoras RPAREN LKEY NEWLINE programa RKEY NEWLINE'''
 
 def p_expresion(p):
   '''expresion : argumentos
@@ -87,6 +90,7 @@ def p_datos_variable(p):
   var_name = p[1]
   if var_name not in variables_existentes:
     print(f"Error semántico: Variable '{var_name}' no ha sido declarada.")
+    errores3.append(f"Error semántico: Variable '{var_name}' no ha sido declarada.")
   p[0] = var_name
 
 
@@ -118,12 +122,16 @@ def p_d_booleanos(p):
 
 def p_operacionAritmetica(p):
   '''operacionAritmetica : d_numericos operadorAritmetico d_numericos
+  | VARIABLE operadorAritmetico d_numericos
+  | d_numericos operadorAritmetico VARIABLE
+  | VARIABLE operadorAritmetico VARIABLE
   | d_numericos operadorAritmetico operacionAritmetica'''
 # 3 + 5
 
 def p_operacionAritmetica_error(p):
-  '''operacionAritmetica : d_numericos operadorAritmetico error'''
+  '''operacionAritmetica : error operadorAritmetico error'''
   print("Error semántico: Se ha encontrado un error en la expresión aritmética. Operación incorrecta.")
+  errores3.append("Error semántico: Se ha encontrado un error en la expresión aritmética. Operación incorrecta.")
 
 
 def p_operacionModificadoras(p):
@@ -151,6 +159,7 @@ def p_operacionRelacionalNumerica(p):
 def p_operacionRelacionalNumerica_error(p):
   '''operacionRelacionalNumerica : datos operadorRelacionalNumerico error'''
   print("Error semántico: Se ha encontrado un error en la expresión relacional. El segundo objeto de la comparación debe ser numérico.")
+  errores3.append("Error semántico: Se ha encontrado un error en la expresión relacional. El segundo objeto de la comparación debe ser numérico.")
 
 def p_operadorAritmetico(p):
   ''' operadorAritmetico : PLUS
@@ -201,17 +210,31 @@ def p_invocar_funcion(p):
   fun_name = p[1]
   if fun_name not in funciones_existentes:
     print(f"Error semántico: Función '{fun_name}' no ha sido creada.")
-
+    errores3.append(f"Error semántico: Función '{fun_name}' no ha sido creada.")
 
 def p_argumentos_funcion(p):
   '''argumentosFuncion : argumentoFuncion
   | argumentoFuncion argumentosFuncion'''
 
-def p_argumento_funcion(p):
-  '''argumentoFuncion : d_numericos
-  | d_strings
-  | d_booleanos
-  | VARIABLE'''
+def p_argumento_funcion_variable(p):
+  '''argumentoFuncion : VARIABLE'''
+  var_name = p[1]
+  variables_existentes.add(var_name)
+
+
+def p_argumento_funcion_string(p):
+  '''argumentoFuncion : d_strings'''
+  p[0] = p[1]
+
+
+def p_argumento_funcion_number(p):
+  '''argumentoFuncion : d_numericos'''
+  p[0] = str(p[1])
+
+
+def p_argumento_funcion_boolean(p):
+  '''argumentoFuncion : d_booleanos'''
+  p[0] = p[1]
 
 def p_datos_comma(p):
   '''datos_comma : datos

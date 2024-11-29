@@ -5,6 +5,8 @@ import ply.yacc as yacc
 
 from lexico import tokens
 
+errores2 = []
+
 def p_programa(p):
   '''programa : bloque
      | bloque programa
@@ -43,10 +45,10 @@ def p_print(p):
 
 def p_if(p):
   '''if : IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY
-    | IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY NEWLINE'''
+    | IF LPAREN operacionRelacional RPAREN LKEY NEWLINE programa RKEY ELSE LKEY NEWLINE programa RKEY'''
 
 def p_for(p):
-  '''for : FOR LPAREN VARIABLE ASSIGN datos SEMICOLON VARIABLE operadorRelacionalNumerico datos SEMICOLON operacionModificadoras RPAREN LKEY NEWLINE programa RKEY NEWLINE'''
+  '''for : FOR LPAREN VARIABLE ASSIGN datos SEMICOLON VARIABLE operadorRelacionalNumerico datos SEMICOLON operacionModificadoras RPAREN LKEY NEWLINE programa RKEY'''
 
 def p_expresion(p):
   '''expresion : argumentos
@@ -146,7 +148,8 @@ def p_funcion(p):
   | FUNCTION FUNCTION_NAME LPAREN RPAREN LKEY NEWLINE cuerpoFuncion RKEY'''
 
 def p_invocar_funcion(p):
-  '''invocar : FUNCTION_NAME LPAREN datos_comma RPAREN SEMICOLON'''
+  '''invocar : FUNCTION_NAME LPAREN datos_comma RPAREN SEMICOLON
+  | FUNCTION_NAME LPAREN RPAREN SEMICOLON'''
 
 def p_datos_comma(p):
   '''datos_comma : datos
@@ -162,12 +165,14 @@ def p_readline(p):
 
 # Error rule for syntax errors
 def p_error(p):
+    global errores2
     if p:
       mensaje = f"Error de sintaxis en la línea {p.lineno}: Token inesperado '{p.value}'"
+      errores2.append(f"Error de sintaxis en la línea {p.lineno}: Token inesperado '{p.value}'")
     else:
-      mensaje = "Error de sintaxis: Fin de entrada inesperado"      
+      mensaje = "Error de sintaxis: Fin de entrada inesperado"
+      errores2.append("Error de sintaxis: Fin de entrada inesperado")
     print(mensaje)
-    exit()
     
 # Build the parser
 parser = yacc.yacc()

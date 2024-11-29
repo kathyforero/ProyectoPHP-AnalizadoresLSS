@@ -4,12 +4,31 @@ import ply.yacc as yacc
 from sintactico import parser  # Importa el parser desde tu archivo de análisis (el archivo donde definiste el parser)
 from sintactico import parser as parser_sintactico
 from semantico import parser as parser_semantico
+# from build.gui import *
+import tkinter as tk
 
 
-dato2 = """
-$a -= 2;
-"""
+# def configurar_run():
+#     dato = entry_1.get("1.0", "end-1c")
+#     print(dato)
+#
+#     entry_2.config(state="normal")  # Habilitar para modificar
+#     entry_2.delete("1.0", "end")  # Limpiar el contenido
+#     entry_2.insert("1.0", dato)  # Insertar el texto extraído
+#     entry_2.config(state="disabled")  # Deshabilitar el widget después de modificarlo
+#     result = parser_sintactico.parse(dato)
+#     result = parser_semantico.parse(dato)  # Llama al parser para analizar los datos
+#
+# def cerrar_ventana(window):
+#     window.quit()  # Termina el ciclo de eventos de Tkinter y cierra la ventana
+#
+def main():
+    # Crea una instancia de Tkinter
+    window = tk.Tk()
 
-result = parser_sintactico.parse(dato2)
-result = parser_semantico.parse(dato2)  # Llama al parser para analizar los datos
+    # Ejecutamos la ventana de GUI
+    window.mainloop()
+
+if __name__ == "__main__":
+    main()
 
