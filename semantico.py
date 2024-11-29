@@ -38,6 +38,7 @@ def p_sentencia(p):
 # REGLA SEMÁNTICA 3
 #VERIFICAR QUE LAS VARIABLES EXISTAN AL IMPRIMIR
 variables_existentes = set()
+funciones_existentes = set()
 
 def p_asignacion(p):
   '''asignacion : VARIABLE ASSIGN expresion SEMICOLON'''
@@ -83,30 +84,6 @@ def p_expresion(p):
     | operadorLogico
   '''
 
-def p_argumentos_funcion(p):
-  '''argumentosFuncion : argumentoFuncion
-  | argumentoFuncion argumentosFuncion'''
-
-def p_argumento_funcion_variable(p):
-  '''argumentoFuncion : VARIABLE'''
-  var_name = p[1]
-  variables_existentes.add(var_name)
-
-
-def p_argumento_funcion_string(p):
-  '''argumentoFuncion : d_strings'''
-  p[0] = p[1]
-
-
-def p_argumento_funcion_number(p):
-  '''argumentoFuncion : d_numericos'''
-  p[0] = str(p[1])
-
-
-def p_argumento_funcion_boolean(p):
-  '''argumentoFuncion : d_booleanos'''
-  p[0] = p[1]
-
 ###################################################################################
 # REGLA SEMÁNTICA 3 (CONTINUACIÓN)
 
@@ -151,7 +128,53 @@ def p_d_strings(p):
 def p_d_booleanos(p):
   '''d_booleanos : BOOLEAN'''
 
+def p_argumentos_funcion(p):
+  '''argumentosFuncion : argumentoFuncion
+  | argumentoFuncion argumentosFuncion'''
 
+def p_argumento_funcion_variable(p):
+  '''argumentoFuncion : VARIABLE'''
+  var_name = p[1]
+  variables_existentes.add(var_name)
+
+def p_argumento_funcion_string(p):
+  '''argumentoFuncion : d_strings'''
+  p[0] = p[1]
+
+
+def p_argumento_funcion_number(p):
+  '''argumentoFuncion : d_numericos'''
+  p[0] = str(p[1])
+
+def p_argumento_funcion_boolean(p):
+  '''argumentoFuncion : d_booleanos'''
+  p[0] = p[1]
+
+# REGLA SEMÁNTICA 4
+#VALIDAR FUNCIONES EXISTENTES PARA SU INVOCACIÓN DENTRO DEL CODIGO
+
+def p_invocar_funcion(p):
+  '''invocar : FUNCTION_NAME LPAREN datos_comma RPAREN SEMICOLON
+  | FUNCTION_NAME LPAREN RPAREN SEMICOLON'''
+  fun_name = p[1]
+  if fun_name not in funciones_existentes:
+    print(f"Error semántico: Función '{fun_name}' no ha sido creada.")
+    errores3.append(f"Error semántico: Función '{fun_name}' no ha sido creada.")
+
+def p_funcion(p):
+  '''funcion : FUNCTION FUNCTION_NAME LPAREN argumentosFuncion RPAREN LKEY NEWLINE cuerpoFuncion RKEY
+  | FUNCTION FUNCTION_NAME LPAREN RPAREN LKEY NEWLINE cuerpoFuncion RKEY'''
+  fun_name = p[2]
+  funciones_existentes.add(fun_name)
+
+def p_datos_comma(p):
+  '''datos_comma : datos
+    | datos COMMA datos_comma'''
+
+def p_cuerpoFuncion(p):
+  '''cuerpoFuncion : programa RETURN expresion SEMICOLON NEWLINE
+  | programa
+  | RETURN expresion SEMICOLON NEWLINE'''
 
 ##########################################################################
 # REGLA SEMÁNTICA 1
@@ -232,36 +255,6 @@ def p_cuerpoArregloDeclarado(p):
 
 def p_arregloIndexado(p):
   '''arregloIndexado : LCOR datos_comma RCOR'''
-
-
-
-#######################################################
-# REGLA SEMÁNTICA 4
-#VALIDAR FUNCIONES EXISTENTES PARA SU INVOCACIÓN DENTRO DEL CODIGO
-funciones_existentes = set()
-
-def p_funcion(p):
-  '''funcion : FUNCTION FUNCTION_NAME LPAREN argumentosFuncion RPAREN LKEY NEWLINE cuerpoFuncion RKEY
-  | FUNCTION FUNCTION_NAME LPAREN RPAREN LKEY NEWLINE cuerpoFuncion RKEY'''
-  fun_name = p[2]
-  funciones_existentes.add(fun_name)
-
-def p_invocar_funcion(p):
-  '''invocar : FUNCTION_NAME LPAREN datos_comma RPAREN SEMICOLON
-  | FUNCTION_NAME LPAREN RPAREN SEMICOLON'''
-  fun_name = p[1]
-  if fun_name not in funciones_existentes:
-    print(f"Error semántico: Función '{fun_name}' no ha sido creada.")
-    errores3.append(f"Error semántico: Función '{fun_name}' no ha sido creada.")
-
-def p_datos_comma(p):
-  '''datos_comma : datos
-    | datos COMMA datos_comma'''
-
-def p_cuerpoFuncion(p):
-  '''cuerpoFuncion : programa RETURN expresion SEMICOLON NEWLINE
-  | programa
-  | RETURN expresion SEMICOLON NEWLINE'''
 
 def p_readline(p):
   '''readline : READLINE LPAREN RPAREN'''
