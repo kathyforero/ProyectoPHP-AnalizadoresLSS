@@ -45,14 +45,12 @@ tokens = ('NUMBER',
           'RETURN', 
           'COMMENT1',
           'DIFFERENT',
-          'COUNT',
           'GREATER',
           'LESS',
           'EQUALS',
           'GREATER_EQUALS',
           'LESS_EQUALS',
           'READLINE',
-          'PERIOD',
           'NEWLINE'
     )
 
@@ -75,7 +73,6 @@ t_RKEY = r'}'
 t_MOD = r'\%'
 t_SEMICOLON = r';'
 t_COMMA = r','
-t_PERIOD = r'\.'
 # A regular expression rule with some action code
 
 

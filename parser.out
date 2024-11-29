@@ -1,10 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    COUNT
-    PERIOD
-
 Grammar
 
 Rule 0     S' -> programa
@@ -115,7 +110,6 @@ ASSIGN_SUB           : 19 21
 BOOLEAN              : 52
 COMMA                : 43 86 93
 COMMENT1             : 4 5
-COUNT                : 
 DECREMENT            : 60
 DIFFERENT            : 79
 DIVIDE               : 73
@@ -142,7 +136,6 @@ MINUS                : 71
 MOD                  : 74
 NEWLINE              : 5 6 8 25 26 26 26 27 27 84 84 86 88 89 94 96
 NUMBER               : 49
-PERIOD               : 
 PLUS                 : 70
 RCOR                 : 84 87
 READLINE             : 97
