@@ -29,7 +29,8 @@ def p_sentencia(p):
     | funcion 
     | if 
     | for
-    | invocar'''
+    | invocar
+    | operacionModificadoras SEMICOLON'''
 
 def p_asignacion(p):
   '''asignacion : VARIABLE ASSIGN expresion SEMICOLON'''
@@ -104,11 +105,11 @@ def p_operacionRelacional(p):
   | operacionRelacionalNumerica'''
 
 def p_operacionRelacionalGeneral(p):
-  '''operacionRelacionalGeneral : VARIABLE operadorRelacionalGeneral datos'''
+  '''operacionRelacionalGeneral : datos operadorRelacionalGeneral datos'''
 
 #REGLA SEMANTICA 2
 def p_operacionRelacionalNumerica(p):
-  '''operacionRelacionalNumerica : VARIABLE operadorRelacionalNumerico d_numericos'''
+  '''operacionRelacionalNumerica : datos operadorRelacionalNumerico datos'''
 
 def p_operadorAritmetico(p):
   ''' operadorAritmetico : PLUS

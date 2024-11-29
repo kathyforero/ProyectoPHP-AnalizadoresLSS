@@ -29,7 +29,8 @@ def p_sentencia(p):
     | funcion 
     | if 
     | for
-    | invocar'''
+    | invocar
+    | operacionModificadoras SEMICOLON'''
 
 
 
@@ -82,6 +83,30 @@ def p_expresion(p):
     | operadorLogico
   '''
 
+def p_argumentos_funcion(p):
+  '''argumentosFuncion : argumentoFuncion
+  | argumentoFuncion argumentosFuncion'''
+
+def p_argumento_funcion_variable(p):
+  '''argumentoFuncion : VARIABLE'''
+  var_name = p[1]
+  variables_existentes.add(var_name)
+
+
+def p_argumento_funcion_string(p):
+  '''argumentoFuncion : d_strings'''
+  p[0] = p[1]
+
+
+def p_argumento_funcion_number(p):
+  '''argumentoFuncion : d_numericos'''
+  p[0] = str(p[1])
+
+
+def p_argumento_funcion_boolean(p):
+  '''argumentoFuncion : d_booleanos'''
+  p[0] = p[1]
+
 ###################################################################################
 # REGLA SEMÁNTICA 3 (CONTINUACIÓN)
 
@@ -116,8 +141,6 @@ def p_datos_boolean(p):
   p[0] = p[1]
 
 
-
-
 def p_d_numericos(p):
   '''d_numericos : NUMBER
     | FLOAT'''
@@ -147,7 +170,6 @@ def p_operacionAritmetica_error(p):
   errores3.append("Error semántico: Se ha encontrado un error en la expresión aritmética. Operación incorrecta.")
 
 
-
 def p_operacionModificadoras(p):
   '''operacionModificadoras : VARIABLE INCREMENT
     | VARIABLE DECREMENT'''
@@ -165,19 +187,17 @@ def p_operacionRelacionalGeneral(p):
   '''operacionRelacionalGeneral : datos operadorRelacionalGeneral datos'''
 
 
-
 ###################################################################
 #REGLA SEMÁNTICA 2
 #OPERACION PARA COMPARAR UN DATO (¡PHP PASA LOS STRING A 0 CUANDO COMPARA!) CON UN NÚMERO
 def p_operacionRelacionalNumerica(p):
-  '''operacionRelacionalNumerica : datos operadorRelacionalNumerico d_numericos'''
+  '''operacionRelacionalNumerica : datos operadorRelacionalNumerico d_numericos
+  | datos operadorRelacionalNumerico VARIABLE'''
 
 def p_operacionRelacionalNumerica_error(p):
   '''operacionRelacionalNumerica : datos operadorRelacionalNumerico error'''
   print("Error semántico: Se ha encontrado un error en la expresión relacional. El segundo objeto de la comparación debe ser numérico.")
   errores3.append("Error semántico: Se ha encontrado un error en la expresión relacional. El segundo objeto de la comparación debe ser numérico.")
-
-
 
 
 def p_operadorAritmetico(p):
@@ -233,30 +253,6 @@ def p_invocar_funcion(p):
   if fun_name not in funciones_existentes:
     print(f"Error semántico: Función '{fun_name}' no ha sido creada.")
     errores3.append(f"Error semántico: Función '{fun_name}' no ha sido creada.")
-
-def p_argumentos_funcion(p):
-  '''argumentosFuncion : argumentoFuncion
-  | argumentoFuncion argumentosFuncion'''
-
-def p_argumento_funcion_variable(p):
-  '''argumentoFuncion : VARIABLE'''
-  var_name = p[1]
-  variables_existentes.add(var_name)
-
-
-def p_argumento_funcion_string(p):
-  '''argumentoFuncion : d_strings'''
-  p[0] = p[1]
-
-
-def p_argumento_funcion_number(p):
-  '''argumentoFuncion : d_numericos'''
-  p[0] = str(p[1])
-
-
-def p_argumento_funcion_boolean(p):
-  '''argumentoFuncion : d_booleanos'''
-  p[0] = p[1]
 
 def p_datos_comma(p):
   '''datos_comma : datos
